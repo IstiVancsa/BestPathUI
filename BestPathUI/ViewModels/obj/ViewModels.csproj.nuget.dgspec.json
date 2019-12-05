@@ -1,0 +1,310 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\ViewModels\\ViewModels.csproj": {}
+  },
+  "projects": {
+    "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Interfaces\\Interfaces.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Interfaces\\Interfaces.csproj",
+        "projectName": "Interfaces",
+        "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Interfaces\\Interfaces.csproj",
+        "packagesPath": "C:\\Users\\Istvan\\.nuget\\packages\\",
+        "outputPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Interfaces\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Istvan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj": {
+                "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj"
+              },
+              "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj": {
+                "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj",
+        "projectName": "Models",
+        "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj",
+        "packagesPath": "C:\\Users\\Istvan\\.nuget\\packages\\",
+        "outputPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Istvan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Services\\Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Services\\Services.csproj",
+        "projectName": "Services",
+        "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Services\\Services.csproj",
+        "packagesPath": "C:\\Users\\Istvan\\.nuget\\packages\\",
+        "outputPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Istvan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Interfaces\\Interfaces.csproj": {
+                "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Interfaces\\Interfaces.csproj"
+              },
+              "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj": {
+                "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj",
+        "projectName": "Utils",
+        "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj",
+        "packagesPath": "C:\\Users\\Istvan\\.nuget\\packages\\",
+        "outputPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Istvan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\ViewModels\\ViewModels.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\ViewModels\\ViewModels.csproj",
+        "projectName": "ViewModels",
+        "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\ViewModels\\ViewModels.csproj",
+        "packagesPath": "C:\\Users\\Istvan\\.nuget\\packages\\",
+        "outputPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\ViewModels\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Istvan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj": {
+                "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj"
+              },
+              "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Services\\Services.csproj": {
+                "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Services\\Services.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

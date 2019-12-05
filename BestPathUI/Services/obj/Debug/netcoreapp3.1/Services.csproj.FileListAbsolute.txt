@@ -1,0 +1,6 @@
+D:\Info\Anul3\dotNet\GitProiect\BestPathUI\BestPathUI\Services\bin\Debug\netcoreapp3.1\Interfaces.dll
+D:\Info\Anul3\dotNet\GitProiect\BestPathUI\BestPathUI\Services\bin\Debug\netcoreapp3.1\Models.dll
+D:\Info\Anul3\dotNet\GitProiect\BestPathUI\BestPathUI\Services\bin\Debug\netcoreapp3.1\Utils.dll
+D:\Info\Anul3\dotNet\GitProiect\BestPathUI\BestPathUI\Services\obj\Debug\netcoreapp3.1\Services.csprojAssemblyReference.cache
+D:\Info\Anul3\dotNet\GitProiect\BestPathUI\BestPathUI\Services\obj\Debug\netcoreapp3.1\Services.AssemblyInfoInputs.cache
+D:\Info\Anul3\dotNet\GitProiect\BestPathUI\BestPathUI\Services\obj\Debug\netcoreapp3.1\Services.AssemblyInfo.cs
