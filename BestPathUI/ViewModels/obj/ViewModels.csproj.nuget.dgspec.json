@@ -1,24 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\ViewModels\\ViewModels.csproj": {}
+    "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\ViewModels\\ViewModels.csproj": {}
   },
   "projects": {
-    "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Interfaces\\Interfaces.csproj": {
+    "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Interfaces\\Interfaces.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Interfaces\\Interfaces.csproj",
+        "projectUniqueName": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Interfaces\\Interfaces.csproj",
         "projectName": "Interfaces",
-        "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Interfaces\\Interfaces.csproj",
-        "packagesPath": "C:\\Users\\Istvan\\.nuget\\packages\\",
-        "outputPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Interfaces\\obj\\",
+        "projectPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Interfaces\\Interfaces.csproj",
+        "packagesPath": "C:\\Users\\ivancsa\\.nuget\\packages\\",
+        "outputPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Interfaces\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Istvan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\ivancsa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -30,11 +32,11 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj": {
-                "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj"
+              "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Models\\Models.csproj": {
+                "projectPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Models\\Models.csproj"
               },
-              "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj": {
-                "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj"
+              "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj": {
+                "projectPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj"
               }
             }
           }
@@ -66,21 +68,23 @@
         }
       }
     },
-    "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj": {
+    "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Models\\Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj",
+        "projectUniqueName": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Models\\Models.csproj",
         "projectName": "Models",
-        "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj",
-        "packagesPath": "C:\\Users\\Istvan\\.nuget\\packages\\",
-        "outputPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\obj\\",
+        "projectPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Models\\Models.csproj",
+        "packagesPath": "C:\\Users\\ivancsa\\.nuget\\packages\\",
+        "outputPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Istvan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\ivancsa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -121,21 +125,23 @@
         }
       }
     },
-    "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Services\\Services.csproj": {
+    "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Services\\Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Services\\Services.csproj",
+        "projectUniqueName": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Services\\Services.csproj",
         "projectName": "Services",
-        "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Services\\Services.csproj",
-        "packagesPath": "C:\\Users\\Istvan\\.nuget\\packages\\",
-        "outputPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Services\\obj\\",
+        "projectPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Services\\Services.csproj",
+        "packagesPath": "C:\\Users\\ivancsa\\.nuget\\packages\\",
+        "outputPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Services\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Istvan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\ivancsa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -147,11 +153,11 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Interfaces\\Interfaces.csproj": {
-                "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Interfaces\\Interfaces.csproj"
+              "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Interfaces\\Interfaces.csproj": {
+                "projectPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Interfaces\\Interfaces.csproj"
               },
-              "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj": {
-                "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj"
+              "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Models\\Models.csproj": {
+                "projectPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Models\\Models.csproj"
               }
             }
           }
@@ -189,21 +195,23 @@
         }
       }
     },
-    "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj": {
+    "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj",
+        "projectUniqueName": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj",
         "projectName": "Utils",
-        "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj",
-        "packagesPath": "C:\\Users\\Istvan\\.nuget\\packages\\",
-        "outputPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\obj\\",
+        "projectPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj",
+        "packagesPath": "C:\\Users\\ivancsa\\.nuget\\packages\\",
+        "outputPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Utils\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Istvan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\ivancsa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -244,21 +252,23 @@
         }
       }
     },
-    "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\ViewModels\\ViewModels.csproj": {
+    "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\ViewModels\\ViewModels.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\ViewModels\\ViewModels.csproj",
+        "projectUniqueName": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\ViewModels\\ViewModels.csproj",
         "projectName": "ViewModels",
-        "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\ViewModels\\ViewModels.csproj",
-        "packagesPath": "C:\\Users\\Istvan\\.nuget\\packages\\",
-        "outputPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\ViewModels\\obj\\",
+        "projectPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\ViewModels\\ViewModels.csproj",
+        "packagesPath": "C:\\Users\\ivancsa\\.nuget\\packages\\",
+        "outputPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\ViewModels\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Istvan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\ivancsa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -270,11 +280,11 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj": {
-                "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Models\\Models.csproj"
+              "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Models\\Models.csproj": {
+                "projectPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Models\\Models.csproj"
               },
-              "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Services\\Services.csproj": {
-                "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Services\\Services.csproj"
+              "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Services\\Services.csproj": {
+                "projectPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Services\\Services.csproj"
               }
             }
           }

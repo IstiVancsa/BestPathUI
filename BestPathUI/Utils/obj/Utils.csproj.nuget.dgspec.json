@@ -1,24 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj": {}
+    "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj": {}
   },
   "projects": {
-    "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj": {
+    "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj",
+        "projectUniqueName": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj",
         "projectName": "Utils",
-        "projectPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj",
-        "packagesPath": "C:\\Users\\Istvan\\.nuget\\packages\\",
-        "outputPath": "D:\\Info\\Anul3\\dotNet\\GitProiect\\BestPathUI\\BestPathUI\\Utils\\obj\\",
+        "projectPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Utils\\Utils.csproj",
+        "packagesPath": "C:\\Users\\ivancsa\\.nuget\\packages\\",
+        "outputPath": "E:\\Fac\\DotNetProject\\NewRepo\\BestPathUI\\BestPathUI\\Utils\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Istvan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\ivancsa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
