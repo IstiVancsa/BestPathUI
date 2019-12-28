@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ViewModels
+﻿namespace ViewModels
 {
     public class BaseViewModel
     {

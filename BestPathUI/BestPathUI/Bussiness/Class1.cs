@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Bussiness
+﻿namespace Bussiness
 {
     public class Class1
     {

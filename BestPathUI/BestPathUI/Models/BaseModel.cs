@@ -1,9 +1,15 @@
 ﻿using Models.Interfaces;
+using System;
 
 namespace Models
 {
     public abstract class BaseModel : IBaseModel
     {
-        public virtual int Id { get; set; }
+        public virtual Guid Id { get; set; }
+
+        public IBaseDTO GetDTO()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

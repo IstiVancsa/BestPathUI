@@ -1,0 +1,77 @@
+﻿@inherits AddCityDialogBase
+
+@if (ShowDialog)
+{
+    <div class="modal fade show d-block" id="exampleModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="titleLabel">Employee Quick Add</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <EditForm Model="@City" OnValidSubmit="@HandleValidSubmit">
+
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+
+                        <div class="form-group">
+                            <label for="cityName">CityName: </label>
+                            <InputText id="cityName" class="form-control" @bind-Value="@City.CityName" placeholder="Enter the City Name"></InputText>
+                            <ValidationMessage For="@(() => City.CityName)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="destinationPoint">DestinationPoint: </label>
+                            <InputCheckbox id="destinationPoint" class="form-control" @bind-Value="@City.DestinationPoint"></InputCheckbox>
+                            <ValidationMessage For="@(() => City.DestinationPoint)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="startPoint">StartPoint: </label>
+                            <InputCheckbox id="startPoint" class="form-control" @bind-Value="@City.StartPoint"></InputCheckbox>
+                            <ValidationMessage For="@(() => City.StartPoint)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="needsHotel">NeedsHotel: </label>
+                            <InputCheckbox id="needsHotel" class="form-control" @bind-Value="@City.NeedsHotel"></InputCheckbox>
+                            <ValidationMessage For="@(() => City.NeedsHotel)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="needsMuseum">NeedsMuseum: </label>
+                            <InputCheckbox id="needsMuseum" class="form-control" @bind-Value="@City.NeedsMuseum"></InputCheckbox>
+                            <ValidationMessage For="@(() => City.NeedsMuseum)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="museumType">Museum Type: </label>
+                            <InputText id="museumType" class="form-control" @bind-Value="@City.MuseumType" placeholder="Enter the Museum Type"></InputText>
+                            <ValidationMessage For="@(() => City.MuseumType)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="startPoint">Needs Restaurant: </label>
+                            <InputCheckbox id="needsRestaurant" class="form-control" @bind-Value="@City.NeedsRestaurant"></InputCheckbox>
+                            <ValidationMessage For="@(() => City.NeedsRestaurant)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="restaurantType">Restaurant Type: </label>
+                            <InputText id="restaurantType" class="form-control" @bind-Value="@City.RestaurantType" placeholder="Enter the Restaurant Type"></InputText>
+                            <ValidationMessage For="@(() => City.RestaurantType)" />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save City</button>
+                        <a class="btn btn-outline-primary" @onclick="@Close">Close</a>
+                    </EditForm>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

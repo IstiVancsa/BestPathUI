@@ -1,0 +1,33 @@
+﻿@page "/map"
+@inherits MapBase
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8" />
+    <title>BestPathUI</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="map-canvas" style="position: initial; width: 75%; height:95%; margin:auto; margin-top:50px">
+    </div>
+    <div>
+        <button @onclick="@AddCity" class="btn btn-dark table-btn quick-add-btn">&nbsp;&nbsp;&nbsp;&nbsp;</button>
+    </div>
+
+</body>
+</html>
+
+<BestPathUI.Pages.Components.AddCityDialog @ref="AddCityDialog" CloseEventCallBack="@AddCityDialog_OnDialogClose"></BestPathUI.Pages.Components.AddCityDialog>

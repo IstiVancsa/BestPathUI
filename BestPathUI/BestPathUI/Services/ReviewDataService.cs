@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EmployeesMobile;
-using Interfaces;
+﻿using Interfaces;
 using Models.DTO;
+using Models.Models;
+using System.Net.Http;
 
 namespace Services
 {
-    public class ReviewDataService : RestDataService<ReviewDTO>, IReviewDataService
+    public class ReviewDataService : RestDataService<Review, ReviewDTO>, IReviewDataService
     {
-        public ReviewDataService() : base("Review")
+        public ReviewDataService(HttpClient httpClient) : base(httpClient, "Review")
         {
-
+            GetByFilterSelector = x => new Review
+            {
+                Id = x.Id,
+                ReviewComment = x.ReviewComment,
+                Stars = x.Stars
+            };
         }
     }
 }

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Models.DTO;
+﻿using Models.DTO;
+using Models.Models;
 
 namespace Interfaces
 {
-    public interface IReviewDataService : IRestDataService<ReviewDTO>
+    public interface IReviewDataService : IRestDataService<Review, ReviewDTO>
     {
     }
 }
