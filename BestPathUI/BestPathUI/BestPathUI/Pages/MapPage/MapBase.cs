@@ -20,7 +20,8 @@ namespace BestPathUI.Pages.MapPage
         protected override async Task OnInitializedAsync()
         {
             Cities = new List<City>();//we might change this
-            //await JSRuntime.InvokeVoidAsync("createMap");
+            await JSRuntime.InvokeVoidAsync("createMap");
+            await JSRuntime.InvokeVoidAsync("initializeMap");
         }
 
         protected void AddCity()

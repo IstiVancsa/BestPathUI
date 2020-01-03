@@ -19,6 +19,7 @@
         @(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))
     </app>
     <script src="_framework/blazor.server.js"></script>
-    <script src="~/js/interop.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIztt-WDuygbYykfzV8akJ3DyR-jrhJRY&callback=initializeMap"></script>
+    <script async defer src="js/interop.js"></script>
 </body>
 </html>
