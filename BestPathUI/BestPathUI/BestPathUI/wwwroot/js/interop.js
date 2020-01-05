@@ -34,14 +34,18 @@ function initializeLocationAutocomplete() {
 
         var options = {
             bounds: defaultBounds,
-            types: ['(cities)']
+            types: ['establishment']
         }
 
         var input = document.getElementById('city_search');
-        alert(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
         cityAutoComplete = new google.maps.places.Autocomplete(input, options);
+
+        google.maps.event.addListener(cityAutoComplete, 'place_changed', function () {
+            console.log(cityAutoComplete.getPlace());
+            console.log("changed");
+        })
         console.log('initializeLocationAutocomplete finished');
     }
     locationAutocompleteCounter++;
@@ -57,12 +61,11 @@ function initializeRestaurantAutocomplete() {
 
         var options = {
             bounds: defaultBounds,
-            types: ['(restaurant)']
+            types: ['restaurant']
         }
 
         var input = document.getElementById('restaurant_search');
-        alert(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
         restaurantAutoComplete = new google.maps.places.Autocomplete(input, options);
         console.log('initializeRestaurantAutocomplete finished');
@@ -80,12 +83,11 @@ function initializeMuseumAutocomplete() {
 
         var options = {
             bounds: defaultBounds,
-            types: ['(museum)']
+            types: ['museum']
         }
 
         var input = document.getElementById('museum_search');
-        alert(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
         museumAutoComplete = new google.maps.places.Autocomplete(input, options);
         console.log('initializeRestaurantAutocomplete finished');
