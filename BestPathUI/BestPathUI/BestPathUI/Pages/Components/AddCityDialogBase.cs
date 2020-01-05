@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using Models.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,8 @@ namespace BestPathUI.Pages.Components
 {
     public class AddCityDialogBase : ComponentBase
     {
+        [Inject]
+        public IJSRuntime JSRuntime { get; set; }//this is used so we can call js methods inside our cs files
         public City City { get; set; } = new City
         {
             Id = Guid.NewGuid(),
@@ -25,6 +28,13 @@ namespace BestPathUI.Pages.Components
         public EventCallback<bool> CloseEventCallBack { get; set; }//we are sending a message from adduserdialog to users overview
 
         public bool ShowDialog { get; set; }
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            //await JSRuntime.InvokeVoidAsync("createLocationAutocomplete");
+            await JSRuntime.InvokeVoidAsync("initializeLocationAutocomplete");
+            await JSRuntime.InvokeVoidAsync("initializeRestaurantAutocomplete");
+            await JSRuntime.InvokeVoidAsync("initializeMuseumAutocomplete");
+        }
         public void Show()
         {
             ResetDialog();
