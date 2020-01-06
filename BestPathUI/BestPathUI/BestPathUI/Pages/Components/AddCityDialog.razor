@@ -46,19 +46,19 @@
 
                         <div class="form-group">
                             <label for="needsMuseum" class="label-checkbox">Needs Museum: </label>
-                            <InputCheckbox id="needsMuseum" class="form-control checkbox" @bind-Value="@City.NeedsMuseum" onclick="document.getElementById('museum_search').disabled=this.unchecked;"></InputCheckbox>
+                            <InputCheckbox id="needsMuseum" class="form-control checkbox" @bind-Value="@City.NeedsMuseum" onclick="enableTextbox('needsMuseum','museum_search')"></InputCheckbox>
                             <ValidationMessage For="@(() => City.NeedsMuseum)" />
                         </div>
 
                         <div class="form-group">
                             <label for="museumType">Museum Type: </label>
-                            <InputText id="museum_search" class="form-control" @bind-Value="@City.MuseumType" placeholder="Enter the Museum Type" disabled></InputText>
+                            <InputText id="museum_search" class="form-control" @bind-Value="@City.MuseumType" placeholder="Enter the Museum Type" disabled ></InputText>
                             <ValidationMessage For="@(() => City.MuseumType)" />
                         </div>
 
                         <div class="form-group">
                             <label for="startPoint" class="label-checkbox">Needs Restaurant: </label>
-                            <InputCheckbox id="needsRestaurant" class="form-control checkbox" @bind-Value="@City.NeedsRestaurant" onclick="document.getElementById('restaurant_search').disabled=this.unchecked;"  ></InputCheckbox>
+                            <InputCheckbox id="needsRestaurant" class="form-control checkbox" @bind-Value="@City.NeedsRestaurant" onclick="enableTextbox('needsRestaurant','restaurant_search')"></InputCheckbox>
                             <ValidationMessage For="@(() => City.NeedsRestaurant)" />
                         </div>
 

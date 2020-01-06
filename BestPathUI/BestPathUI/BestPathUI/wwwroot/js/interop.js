@@ -94,3 +94,11 @@ function initializeMuseumAutocomplete() {
     }
     museumAutocompleteCounter++;
 }
+
+function enableTextbox(chkId, txtId) {
+
+    if (document.getElementById(chkId).checked)
+        document.getElementById(txtId).disabled = false;
+    else
+        document.getElementById(txtId).disabled = true;
+}
