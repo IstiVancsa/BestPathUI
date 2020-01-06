@@ -25,7 +25,7 @@ namespace BestPathUI.Pages.Components
             StartPoint = false
         };
         [Parameter]//now we can cann it as parameter in razor file
-        public EventCallback<bool> CloseEventCallBack { get; set; }//we are sending a message from adduserdialog to users overview
+        public EventCallback<City> CloseEventCallBack { get; set; }//we are sending a message from adduserdialog to users overview
 
         public bool ShowDialog { get; set; }
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -65,8 +65,7 @@ namespace BestPathUI.Pages.Components
 
         protected async Task HandleValidSubmit()
         {
-            await CloseEventCallBack.InvokeAsync(true);//we can send even the save employee here
-
+            await CloseEventCallBack.InvokeAsync(City);//we can send even the save employee here
             ShowDialog = false;
 
             StateHasChanged();

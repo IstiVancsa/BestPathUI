@@ -2,6 +2,7 @@
 using Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Models.Filters;
 using Models.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace BestPathUI.Pages.MapPage
         public ICitiesDataService CitiesDataService { get; set; }
         public IEnumerable<City> Cities { get; set; }
         protected AddCityDialog AddCityDialog { get; set; }
+        public User User { get; set; }
         protected override async Task OnInitializedAsync()
         {
             Cities = new List<City>();//we might change this
@@ -29,9 +31,22 @@ namespace BestPathUI.Pages.MapPage
             AddCityDialog.Show();
         }
 
-        public async void AddCityDialog_OnDialogClose()
+        protected async void SaveRoth()
         {
-            Cities = (await CitiesDataService.GetItemsAsync()).ToList();
+            await CitiesDataService.SavePathAsync(Cities);
+        }
+
+        protected async void GetLastRoth()
+        {
+            CityFilter cityFilter = new CityFilter { UserId = User.Id };
+            Cities = (await CitiesDataService.GetItemsAsync(cityFilter.GetFilter())).ToList();
+        }
+
+        public void AddCityDialog_OnDialogClose(City city)
+        {
+            var newList = Cities.ToList();
+            newList.Add(city);
+            Cities = newList;
             StateHasChanged();
         }
     }

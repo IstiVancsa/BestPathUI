@@ -2,6 +2,6 @@
 {
     public interface IBaseFilterModel
     {
-        string Getfilter();
+        string GetFilter();
     }
 }

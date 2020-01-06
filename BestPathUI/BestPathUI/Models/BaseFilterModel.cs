@@ -6,7 +6,7 @@ namespace Models
 {
     public abstract class BaseFilterModel : IBaseFilterModel
     {
-        public string Getfilter()
+        public string GetFilter()
         {
             string result = "?";
 
@@ -29,7 +29,7 @@ namespace Models
                         }
                     }
                     else if (valore.ToString().Trim().Length > 0)
-                        if (prop.Name.ToLower().EndsWith("id") && valore.ToString() != "0")
+                        if (valore.ToString() != "0" && !string.IsNullOrEmpty(valore.ToString()))
                             if (result != "?")
                                 result += "&" + prop.Name + "=" + valore;
                             else
