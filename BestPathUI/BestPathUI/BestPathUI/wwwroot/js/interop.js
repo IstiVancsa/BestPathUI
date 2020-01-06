@@ -28,12 +28,8 @@ function initializeLocationAutocomplete() {
     //if (locationAutocompleteCounter > 1 && locationAutocompleteCounter % 2 == 0) {
     if (locationAutocompleteCounter == 2) {
         console.log('initializeLocationAutocomplete ' + locationAutocompleteCounter);
-        var defaultBounds = new google.maps.LatLngBounds(
-            new google.maps.LatLng(47.224476, 27.522081),
-            new google.maps.LatLng(47.086967, 27.650483));
 
         var options = {
-            bounds: defaultBounds,
             types: ['establishment']
         }
 
@@ -58,16 +54,15 @@ function initializeRestaurantAutocomplete() {
     if (restaurantAutocompleteCounter == 2) {
         console.log('initializeRestaurantAutocomplete ' + restaurantAutocompleteCounter);
         var defaultBounds = new google.maps.LatLngBounds(
-            new google.maps.LatLng(47.224476, 27.522081),
-            new google.maps.LatLng(47.086967, 27.650483));
+            new google.maps.LatLng(47.124258, 27.453625),
+            new google.maps.LatLng(47.166224, 27.720687));
 
         var options = {
             bounds: defaultBounds,
-            types: ['restaurant']
+            types: ['establishment']
         }
 
         var input = document.getElementById('restaurant_search');
-        //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
         restaurantAutoComplete = new google.maps.places.Autocomplete(input, options);
 
@@ -87,16 +82,15 @@ function initializeMuseumAutocomplete() {
     if (museumAutocompleteCounter == 2) {
         console.log('initializeMuseumAutocomplete ' + museumAutocompleteCounter);
         var defaultBounds = new google.maps.LatLngBounds(
-            new google.maps.LatLng(47.224476, 27.522081),
-            new google.maps.LatLng(47.086967, 27.650483));
+            new google.maps.LatLng(47.124258, 27.453625),
+            new google.maps.LatLng(47.166224, 27.720687));
 
         var options = {
             bounds: defaultBounds,
-            types: ['museum']
+            types: ['establishment']
         }
 
         var input = document.getElementById('museum_search');
-        //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
         museumAutoComplete = new google.maps.places.Autocomplete(input, options);
 
