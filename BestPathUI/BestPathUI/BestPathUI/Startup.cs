@@ -34,6 +34,10 @@ namespace BestPathUI
             {
                 client.BaseAddress = new Uri("https://localhost:44344/");
             });
+            services.AddHttpClient<IGoogleDataService, GoogleDataService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44344/");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
