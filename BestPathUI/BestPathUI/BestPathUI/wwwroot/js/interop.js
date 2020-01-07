@@ -1,4 +1,5 @@
 var map, cityAutoComplete, restaurantAutoComplete, museumAutoComplete, mapCounter = 0, locationAutocompleteCounter = 0, restaurantAutocompleteCounter = 0, museumAutocompleteCounter = 0;
+var city_initialized = false, current_lat, current_long;
 
 function createMap() {
     google.maps.event.addDomListener(window, 'load', initializeMap);
@@ -24,7 +25,7 @@ function initializeMap() {
     mapCounter++;
 }
 
-function initializeLocationAutocomplete() {
+function initializeAutocompletes() {
     //if (locationAutocompleteCounter > 1 && locationAutocompleteCounter % 2 == 0) {
     if (locationAutocompleteCounter == 2) {
         console.log('initializeLocationAutocomplete ' + locationAutocompleteCounter);
@@ -39,9 +40,13 @@ function initializeLocationAutocomplete() {
 
         google.maps.event.addListener(cityAutoComplete, 'place_changed', function () {
             var place = cityAutoComplete.getPlace()
-            console.log(place.geometry.location.lat());
-            console.log(place.geometry.location.lng());
+            current_lat = parseInt(place.geometry.location.lat(), 10);
+            current_long = parseInt(place.geometry.location.lng(), 10);
             input.value = place.name;
+            city_initialized = true;
+            initializeRestaurantAutocomplete();
+            initializeMuseumAutocomplete();
+            console.log("place_changed");
         });
 
         console.log('initializeLocationAutocomplete finished');
@@ -51,11 +56,10 @@ function initializeLocationAutocomplete() {
 
 function initializeRestaurantAutocomplete() {
     //if (locationAutocompleteCounter > 1 && locationAutocompleteCounter % 2 == 0) {
-    if (restaurantAutocompleteCounter == 2) {
         console.log('initializeRestaurantAutocomplete ' + restaurantAutocompleteCounter);
         var defaultBounds = new google.maps.LatLngBounds(
-            new google.maps.LatLng(47.124258, 27.453625),
-            new google.maps.LatLng(47.166224, 27.720687));
+            new google.maps.LatLng(current_lat - 0.5, current_long - 0.5),
+            new google.maps.LatLng(current_lat + 0.5, current_long + 0.5));
 
         var options = {
             bounds: defaultBounds,
@@ -73,17 +77,15 @@ function initializeRestaurantAutocomplete() {
         });
 
         console.log('initializeRestaurantAutocomplete finished');
-    }
     restaurantAutocompleteCounter++;
 }
 
 function initializeMuseumAutocomplete() {
     //if (locationAutocompleteCounter > 1 && locationAutocompleteCounter % 2 == 0) {
-    if (museumAutocompleteCounter == 2) {
         console.log('initializeMuseumAutocomplete ' + museumAutocompleteCounter);
         var defaultBounds = new google.maps.LatLngBounds(
-            new google.maps.LatLng(47.124258, 27.453625),
-            new google.maps.LatLng(47.166224, 27.720687));
+            new google.maps.LatLng(current_lat - 0.5, current_long - 0.5),
+            new google.maps.LatLng(current_lat + 0.5, current_long + 0.5));
 
         var options = {
             bounds: defaultBounds,
@@ -101,7 +103,6 @@ function initializeMuseumAutocomplete() {
         });
 
         console.log('initializeRestaurantAutocomplete finished');
-    }
     museumAutocompleteCounter++;
 }
 
@@ -110,5 +111,6 @@ function enableTextbox(chkId, txtId) {
     if (document.getElementById(chkId).checked)
         document.getElementById(txtId).disabled = false;
     else
-        document.getElementById(txtId).disabled = true;
+        if (city_initialized == true && document.getElementById('city_search').value != '')
+            document.getElementById(txtId).disabled = true;
 }
