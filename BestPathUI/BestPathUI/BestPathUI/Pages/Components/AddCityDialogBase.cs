@@ -31,9 +31,9 @@ namespace BestPathUI.Pages.Components
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             //await JSRuntime.InvokeVoidAsync("createLocationAutocomplete");
-            await JSRuntime.InvokeVoidAsync("initializeLocationAutocomplete");
-            await JSRuntime.InvokeVoidAsync("initializeRestaurantAutocomplete");
-            await JSRuntime.InvokeVoidAsync("initializeMuseumAutocomplete");
+            await JSRuntime.InvokeVoidAsync("initializeAutocompletes");
+            //await JSRuntime.InvokeVoidAsync("initializeRestaurantAutocomplete");
+            //await JSRuntime.InvokeVoidAsync("initializeMuseumAutocomplete");
         }
         public void Show()
         {
