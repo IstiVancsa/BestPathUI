@@ -14,5 +14,6 @@ namespace Models.DTO
         public string RestaurantType { get; set; }
         public bool NeedsMuseum { get; set; }
         public string MuseumType { get; set; }
+        public LocationDTO Location { get; set; }
     }
 }

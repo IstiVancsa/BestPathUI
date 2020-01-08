@@ -1,4 +1,5 @@
 ﻿using Models.DTO;
+using System;
 
 namespace Models.Models
 {
@@ -12,6 +13,7 @@ namespace Models.Models
         public string RestaurantType { get; set; }
         public bool NeedsMuseum { get; set; }
         public string MuseumType { get; set; }
+        public LocationDTO Location { get; set; }
 
         public new CityDTO GetDTO()
         {
@@ -25,8 +27,22 @@ namespace Models.Models
                 NeedsMuseum = this.NeedsMuseum,
                 NeedsRestaurant = this.NeedsRestaurant,
                 RestaurantType = this.RestaurantType,
-                StartPoint = this.StartPoint
+                StartPoint = this.StartPoint,
+                Location = this.Location
             };
+        }
+        public City()
+        {
+            Id = Guid.NewGuid();
+            CityName = "";
+            DestinationPoint = false;
+            MuseumType = "";
+            NeedsHotel = false;
+            NeedsMuseum = false;
+            NeedsRestaurant = false;
+            RestaurantType = "";
+            StartPoint = false;
+            Location = new LocationDTO();
         }
     }
 }

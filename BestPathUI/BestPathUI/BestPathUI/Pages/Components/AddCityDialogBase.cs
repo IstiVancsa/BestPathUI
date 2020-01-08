@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using BestPathUI.Persistence;
+using Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Models.DTO;
@@ -16,18 +17,7 @@ namespace BestPathUI.Pages.Components
         public IGoogleDataService GoogleDataService { get; set; }
         [Inject]
         public IJSRuntime JSRuntime { get; set; }//this is used so we can call js methods inside our cs files
-        public City City { get; set; } = new City
-        {
-            Id = Guid.NewGuid(),
-            CityName = "",
-            DestinationPoint = false,
-            MuseumType = "",
-            NeedsHotel = false,
-            NeedsMuseum = false,
-            NeedsRestaurant = false,
-            RestaurantType = "",
-            StartPoint = false
-        };
+        public City City { get; set; } = new City();
         public List<string> RestaurantTypes { get; set; }
         public List<string> MuseumTypes { get; set; }
         [Parameter]//now we can cann it as parameter in razor file
@@ -92,17 +82,42 @@ namespace BestPathUI.Pages.Components
             };
         }
 
-        protected void RestaurantClicked(ChangeEventArgs restaurantEvent)
+        protected async void RestaurantClicked(ChangeEventArgs restaurantEvent)
         {
-            var result = GoogleDataService.TextSearch(restaurantEvent.Value.ToString(), new LocationDTO { lat = 47.151726, lng = 27.587914 });
+            var result = await GoogleDataService.TextSearch(restaurantEvent.Value.ToString() + "+Restaurant", this.City.Location);
+            Console.WriteLine("Do something");
+        }
+
+        protected async void MuseumClicked(ChangeEventArgs restaurantEvent)
+        {
+            var result = await GoogleDataService.TextSearch(restaurantEvent.Value.ToString() + "+Museum", this.City.Location);
             Console.WriteLine("Do something");
         }
 
         protected async Task HandleValidSubmit()
         {
+            if(this.City.NeedsHotel)
+            {
+                Console.WriteLine("show hotels in a table and a marker on the map");
+            }
+            if (this.City.NeedsMuseum)
+            {
+                Console.WriteLine("show museums in a table and a marker on the map");
+            }
+            if (this.City.NeedsRestaurant)
+            {
+                Console.WriteLine("show restaurants in a table and a marker on the map");
+            }
             await CloseEventCallBack.InvokeAsync(City);//we can send even the save employee here
             ShowDialog = false;
 
+            StateHasChanged();
+        }
+
+        public async void SetLat(string value)
+        {
+            this.City.Location.lat = Convert.ToDouble(value);
+            await Task.Delay(1);
             StateHasChanged();
         }
     }

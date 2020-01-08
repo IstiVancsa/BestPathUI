@@ -19,6 +19,10 @@
 
                         <DataAnnotationsValidator />
                         <ValidationSummary />
+                        <div>
+                            <InputNumber id="lat_hidden" @bind-Value="@City.Location.lat" @onchange="StateHasChanged" style = "display: none"></InputNumber>
+                            <InputNumber id="lng_hidden" @bind-Value="@City.Location.lng" style = "display: none"></InputNumber>
+                        </div>
 
                         <div class="form-group">
                             <label for="cityName">CityName: </label>
@@ -52,8 +56,13 @@
 
                         <div class="form-group">
                             <label for="museumType">Museum Type: </label>
-                            <InputText id="museum_search" class="form-control" @bind-Value="@City.MuseumType" placeholder="Enter the Museum Type" disabled></InputText>
-                            <ValidationMessage For="@(() => City.MuseumType)" />
+                            <select class="form-control" @onchange="@MuseumClicked">
+                                <option value="">-- Select Museum --</option>
+                                @foreach (var museumType in MuseumTypes)
+                                {
+                                    <option value="@museumType">@museumType</option>
+                                }
+                            </select>
                         </div>
 
                         <div class="form-group">
@@ -64,8 +73,6 @@
 
                         <div class="form-group">
                             <label for="restaurantType">Restaurant Type: </label>
-                            <InputText id="restaurant_search" class="form-control" @bind-Value="@City.RestaurantType" disabled placeholder="Enter the Restaurant Type"></InputText>
-                            <ValidationMessage For="@(() => City.RestaurantType)" />
                             <select class="form-control" @onchange="@RestaurantClicked">
                                 <option value="">-- Select Restaurant --</option>
                                 @foreach (var restaurantType in RestaurantTypes)

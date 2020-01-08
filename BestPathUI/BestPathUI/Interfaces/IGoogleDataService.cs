@@ -6,6 +6,6 @@ namespace Interfaces
 {
     public interface IGoogleDataService
     {
-        Task<IList<GoogleTextSearchDTO>> TextSearch(string searchText, LocationDTO locationDTO);
+        Task<GoogleTextSearchResultsDTO> TextSearch(string searchText, LocationDTO locationDTO);
     }
 }

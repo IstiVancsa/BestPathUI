@@ -17,23 +17,24 @@ namespace Services
         {
             this._httpClient = httpClient;
         }
-        public async Task<IList<GoogleTextSearchDTO>> TextSearch(string searchText, LocationDTO locationDTO)
+        public async Task<GoogleTextSearchResultsDTO> TextSearch(string searchText, LocationDTO locationDTO)
         {
-            var items = new List<GoogleTextSearchDTO>();
+            var item = new GoogleTextSearchResultsDTO();
+            var uri = new Uri("https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + searchText + "&sensor=true&location=" + locationDTO.lat.ToString() + ",%20" + locationDTO.lng.ToString() + "&radius=0.1&key=AIzaSyAIztt-WDuygbYykfzV8akJ3DyR-jrhJRY");
             try
             {
-                var response = await this._httpClient.GetAsync("https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + searchText + "&sensor=true&location=" + locationDTO.lat.ToString() + ",%20" + locationDTO.lng.ToString() + "&radius=0.1&key=AIzaSyAIztt-WDuygbYykfzV8akJ3DyR-jrhJR");
+                var response = await this._httpClient.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
-                    items = JsonConvert.DeserializeObject<List<GoogleTextSearchDTO>>(content);
+                    item = JsonConvert.DeserializeObject<GoogleTextSearchResultsDTO>(content);
                 }
             }
             catch (Exception ex)
             {
                 var dsad = ex.Message;
             }
-            return items;
+            return item;
         }
     }
 }
