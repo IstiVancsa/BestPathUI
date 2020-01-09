@@ -20,7 +20,7 @@
                         <DataAnnotationsValidator />
                         <ValidationSummary />
                         <div>
-                            <InputNumber id="lat_hidden" @bind-Value="@City.Location.lat" @onchange="StateHasChanged" style = "display: none"></InputNumber>
+                            <InputNumber id="lat_hidden" @bind-Value="@City.Location.lat" style = "display: none"></InputNumber>
                             <InputNumber id="lng_hidden" @bind-Value="@City.Location.lng" style = "display: none"></InputNumber>
                         </div>
 
@@ -56,7 +56,7 @@
 
                         <div class="form-group">
                             <label for="museumType">Museum Type: </label>
-                            <select class="form-control" @onchange="@MuseumClicked">
+                            <select id="museum_search" class="form-control" @onchange="@MuseumClicked" disabled>
                                 <option value="">-- Select Museum --</option>
                                 @foreach (var museumType in MuseumTypes)
                                 {
@@ -73,7 +73,7 @@
 
                         <div class="form-group">
                             <label for="restaurantType">Restaurant Type: </label>
-                            <select class="form-control" @onchange="@RestaurantClicked">
+                            <select id="restaurant_search" class="form-control" @onchange="@RestaurantClicked" disabled>
                                 <option value="">-- Select Restaurant --</option>
                                 @foreach (var restaurantType in RestaurantTypes)
                                 {

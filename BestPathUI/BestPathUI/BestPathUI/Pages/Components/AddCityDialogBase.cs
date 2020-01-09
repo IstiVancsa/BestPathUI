@@ -24,6 +24,7 @@ namespace BestPathUI.Pages.Components
         public EventCallback<City> CloseEventCallBack { get; set; }//we are sending a message from adduserdialog to users overview
 
         public bool ShowDialog { get; set; }
+        public static LocationDTO Location { get; set; }
 
         protected override void OnInitialized()
         {
@@ -84,12 +85,14 @@ namespace BestPathUI.Pages.Components
 
         protected async void RestaurantClicked(ChangeEventArgs restaurantEvent)
         {
+            this.City.Location = Location;
             var result = await GoogleDataService.TextSearch(restaurantEvent.Value.ToString() + "+Restaurant", this.City.Location);
             Console.WriteLine("Do something");
         }
 
         protected async void MuseumClicked(ChangeEventArgs restaurantEvent)
         {
+            this.City.Location = Location;
             var result = await GoogleDataService.TextSearch(restaurantEvent.Value.ToString() + "+Museum", this.City.Location);
             Console.WriteLine("Do something");
         }
@@ -113,12 +116,10 @@ namespace BestPathUI.Pages.Components
 
             StateHasChanged();
         }
-
-        public async void SetLat(string value)
+        [JSInvokable]
+        public static void SetLocation(LocationDTO location)
         {
-            this.City.Location.lat = Convert.ToDouble(value);
-            await Task.Delay(1);
-            StateHasChanged();
+            Location = location;
         }
     }
 }
