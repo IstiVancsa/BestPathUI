@@ -2,6 +2,7 @@
 using Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Models.DTO;
 using Models.Filters;
 using Models.Models;
 using System.Collections.Generic;
@@ -18,7 +19,9 @@ namespace BestPathUI.Pages.MapPage
         public ICitiesDataService CitiesDataService { get; set; }
         public IEnumerable<City> Cities { get; set; }
         protected AddCityDialog AddCityDialog { get; set; }
-        public User User { get; set; }
+        public Models.Models.User User { get; set; }
+        public IList<GoogleTextSearchDTO> RestaurantSearches { get; set; } = new List<GoogleTextSearchDTO>();
+        public IList<GoogleTextSearchDTO> MuseumSearches { get; set; } = new List<GoogleTextSearchDTO>();
         protected override async Task OnInitializedAsync()
         {
             Cities = new List<City>();//we might change this
@@ -42,10 +45,12 @@ namespace BestPathUI.Pages.MapPage
             Cities = (await CitiesDataService.GetItemsAsync(cityFilter.GetFilter())).ToList();
         }
 
-        public void AddCityDialog_OnDialogClose(City city)
+        public void AddCityDialog_OnDialogClose(Map_AddCity map_AddCity)
         {
+            this.RestaurantSearches = map_AddCity.RestaurantSearches;
+            this.MuseumSearches = map_AddCity.MuseumSearches;
             var newList = Cities.ToList();
-            newList.Add(city);
+            newList.Add(map_AddCity.City);
             Cities = newList;
             StateHasChanged();
         }

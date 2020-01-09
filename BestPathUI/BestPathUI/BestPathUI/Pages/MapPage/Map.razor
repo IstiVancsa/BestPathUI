@@ -23,7 +23,7 @@
 
     <div id="map_canvas" style="position: center; width: 1000px; height:500px; margin:auto; margin-top:50px"></div>
     <div>
-        <button @onclick="@AddCity" class="btn btn-dark table-btn quick-add-btn">&nbsp;&nbsp;&nbsp;&nbsp;</button>
+        <button @onclick="@AddCity" class="btn btn-dark table-btn quick-add-btn">Add City</button>
     </div>
     <div>
         <button @onclick="@SaveRoth" class="btn btn-dark table-btn quick-add-btn">Save Roth</button>
@@ -31,7 +31,74 @@
     <div>
         <button @onclick="@GetLastRoth" class="btn btn-dark table-btn quick-add-btn">Get my last roth</button>
     </div>
+    @if (this.RestaurantSearches.Count > 0)
+    {
+        <label>Here are couple of restaurants for you</label>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Oppened</th>
+                    <th>Price Level</th>
+                    <th>rating</th>
+                    <th>Total Reviews</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var restaurant in RestaurantSearches)
+                {
+                    <tr>
+                        <th>@restaurant.name</th>
+                        <th>@restaurant.formatted_address</th>
+                        <th>@restaurant.opening_hours.open_now</th>
+                        <th>@restaurant.price_level</th>
+                        <th>@restaurant.rating</th>
+                        <th>@restaurant.user_ratings_total</th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    @if (this.MuseumSearches.Count > 0)
+    {
+        <label>Here are couple of museums for you</label>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Oppened</th>
+                    <th>Price Level</th>
+                    <th>rating</th>
+                    <th>Total Reviews</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var museum in MuseumSearches)
+                {
+                    <tr>
+                        <th>@museum.name</th>
+                        <th>@museum.formatted_address</th>
+                        <th>@museum.opening_hours.open_now</th>
+                        <th>@museum.price_level</th>
+                        <th>@museum.rating</th>
+                        <th>@museum.user_ratings_total</th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </body>
 </html>
 
 <BestPathUI.Pages.Components.AddCityDialog @ref="AddCityDialog" CloseEventCallBack="@AddCityDialog_OnDialogClose"></BestPathUI.Pages.Components.AddCityDialog>
+
+<style>
+    table {
+        overflow-y: scroll;
+        height: 200px;
+        display: block;
+    }
+</style>

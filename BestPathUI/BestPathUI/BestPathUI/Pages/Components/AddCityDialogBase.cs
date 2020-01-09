@@ -21,10 +21,13 @@ namespace BestPathUI.Pages.Components
         public List<string> RestaurantTypes { get; set; }
         public List<string> MuseumTypes { get; set; }
         [Parameter]//now we can cann it as parameter in razor file
-        public EventCallback<City> CloseEventCallBack { get; set; }//we are sending a message from adduserdialog to users overview
+        public EventCallback<Map_AddCity> CloseEventCallBack { get; set; }//we are sending a message from adduserdialog to users overview
 
         public bool ShowDialog { get; set; }
         public static LocationDTO Location { get; set; }
+        public IList<GoogleTextSearchDTO> RestaurantSearches { get; set; } = new List<GoogleTextSearchDTO>();
+        public IList<GoogleTextSearchDTO> MuseumSearches { get; set; } = new List<GoogleTextSearchDTO>();
+        private bool _autocompleteInitialized { get; set; } = false;
 
         protected override void OnInitialized()
         {
@@ -50,10 +53,11 @@ namespace BestPathUI.Pages.Components
         }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            //await JSRuntime.InvokeVoidAsync("createLocationAutocomplete");
-            await JSRuntime.InvokeVoidAsync("initializeAutocompletes");
-            //await JSRuntime.InvokeVoidAsync("initializeRestaurantAutocomplete");
-            //await JSRuntime.InvokeVoidAsync("initializeMuseumAutocomplete");
+            if (ShowDialog & !_autocompleteInitialized)
+            {
+                _autocompleteInitialized = true;
+                await JSRuntime.InvokeVoidAsync("initializeAutocompletes");
+            }
         }
         public void Show()
         {
@@ -64,6 +68,7 @@ namespace BestPathUI.Pages.Components
 
         public void Close()
         {
+            _autocompleteInitialized = false;
             ShowDialog = false;
             StateHasChanged();
         }
@@ -86,34 +91,38 @@ namespace BestPathUI.Pages.Components
         protected async void RestaurantClicked(ChangeEventArgs restaurantEvent)
         {
             this.City.Location = Location;
-            var result = await GoogleDataService.TextSearch(restaurantEvent.Value.ToString() + "+Restaurant", this.City.Location);
+            RestaurantSearches = (await GoogleDataService.TextSearch(restaurantEvent.Value.ToString() + "+Restaurant", this.City.Location)).results;
             Console.WriteLine("Do something");
         }
 
         protected async void MuseumClicked(ChangeEventArgs restaurantEvent)
         {
             this.City.Location = Location;
-            var result = await GoogleDataService.TextSearch(restaurantEvent.Value.ToString() + "+Museum", this.City.Location);
+            MuseumSearches = (await GoogleDataService.TextSearch(restaurantEvent.Value.ToString() + "+Museum", this.City.Location)).results;
             Console.WriteLine("Do something");
         }
 
         protected async Task HandleValidSubmit()
         {
-            if(this.City.NeedsHotel)
+            Map_AddCity map_AddCity = new Map_AddCity();
+            if (this.City.NeedsHotel)
             {
                 Console.WriteLine("show hotels in a table and a marker on the map");
             }
             if (this.City.NeedsMuseum)
             {
-                Console.WriteLine("show museums in a table and a marker on the map");
+                map_AddCity.MuseumSearches = this.MuseumSearches;
             }
             if (this.City.NeedsRestaurant)
             {
-                Console.WriteLine("show restaurants in a table and a marker on the map");
+                map_AddCity.RestaurantSearches = this.RestaurantSearches;
             }
-            await CloseEventCallBack.InvokeAsync(City);//we can send even the save employee here
-            ShowDialog = false;
 
+            map_AddCity.City = this.City;
+
+            await CloseEventCallBack.InvokeAsync(map_AddCity);//we can send even the save employee here
+            ShowDialog = false;
+            _autocompleteInitialized = false;
             StateHasChanged();
         }
         [JSInvokable]

@@ -10,7 +10,7 @@ namespace Models.DTO
         public GeometryDTO geometry { get; set; }
         public string id { get; set; }
         public string name { get; set; }
-        public OpeningHourDTO opening_hours { get; set; }
+        public OpeningHourDTO opening_hours { get; set; } = new OpeningHourDTO();
         public string place_id { get; set; }
         public float price_level { get; set; }
         public float rating { get; set; }

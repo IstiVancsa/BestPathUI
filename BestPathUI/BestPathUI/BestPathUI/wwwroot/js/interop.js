@@ -1,16 +1,14 @@
-var map, cityAutoComplete, mapCounter = 0, locationAutocompleteCounter = 0;
-var city_initialized = false, current_lat, current_long;
+var map, cityAutoComplete, mapCounter = 0;
+var city_initialized = false;
 
 function createMap() {
     google.maps.event.addDomListener(window, 'load', initializeMap);
 }
 
 function createLocationAutocomplete() {
-    if (locationAutocompleteCounter == 0) {
-        console.log("create autocomplete");
-        google.maps.event.addDomListener(window, 'load', initializeLocationAutocomplete);
-        console.log('create autocomplete finished');
-    }
+    console.log("create autocomplete");
+    google.maps.event.addDomListener(window, 'load', initializeLocationAutocomplete);
+    console.log('create autocomplete finished');
 }
 
 function initializeMap() {
@@ -26,44 +24,39 @@ function initializeMap() {
 }
 
 function initializeAutocompletes() {
-    //if (locationAutocompleteCounter > 1 && locationAutocompleteCounter % 2 == 0) {
-    if (locationAutocompleteCounter == 2) {
-        console.log('initializeLocationAutocomplete ' + locationAutocompleteCounter);
+    console.log('initializeLocationAutocomplete started');
 
-        var options = {
-            types: ['establishment']
-        }
-
-        var input = document.getElementById('city_search');
-
-        cityAutoComplete = new google.maps.places.Autocomplete(input, options);
-
-        google.maps.event.addListener(cityAutoComplete, 'place_changed', function () {
-            var place = cityAutoComplete.getPlace();
-
-            current_lat = parseFloat(place.geometry.location.lat(), 10);
-            current_long = parseFloat(place.geometry.location.lng(), 10);
-
-            var lat_hidden = document.getElementById('lat_hidden');
-            var lng_hidden = document.getElementById('lng_hidden');
-
-            lat_hidden.value = current_lat;
-            lng_hidden.value = current_long;
-
-            var location = {
-                lat: current_lat,
-                lng: current_long
-            };
-
-            DotNet.invokeMethodAsync('BestPathUI', 'SetLocation', location);
-
-            input.value = place.name;
-            city_initialized = true;
-        });
-
-        console.log('initializeLocationAutocomplete finished');
+    var options = {
+        types: ['establishment']
     }
-    locationAutocompleteCounter++;
+
+    var input = document.getElementById('city_search');
+    cityAutoComplete = new google.maps.places.Autocomplete(input, options);
+
+    google.maps.event.addListener(cityAutoComplete, 'place_changed', function () {
+        var place = cityAutoComplete.getPlace();
+
+        var current_lat = parseFloat(place.geometry.location.lat(), 10);
+        var current_long = parseFloat(place.geometry.location.lng(), 10);
+
+        var lat_hidden = document.getElementById('lat_hidden');
+        var lng_hidden = document.getElementById('lng_hidden');
+
+        lat_hidden.value = current_lat;
+        lng_hidden.value = current_long;
+
+        var location = {
+            lat: current_lat,
+            lng: current_long
+        };
+
+        DotNet.invokeMethodAsync('BestPathUI', 'SetLocation', location);
+
+        input.value = place.name;
+        city_initialized = true;
+    });
+
+    console.log('initializeLocationAutocomplete finished');
 }
 
 function enableTextbox(chkId, txtId) {
