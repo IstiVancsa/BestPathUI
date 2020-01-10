@@ -84,6 +84,7 @@ namespace BestPathUI.Pages.MapPage
             this.RestaurantSearches = map_AddCity.RestaurantSearches;
             this.MuseumSearches = map_AddCity.MuseumSearches;
             this.Cities.Add(map_AddCity.City);
+            //we have to set the user id of map_addCity.CIty
             StateHasChanged();
         }
     }

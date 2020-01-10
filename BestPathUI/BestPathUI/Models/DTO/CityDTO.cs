@@ -15,5 +15,6 @@ namespace Models.DTO
         public bool NeedsMuseum { get; set; }
         public string MuseumType { get; set; }
         public LocationDTO Location { get; set; }
+        public Guid UserId { get; set; }
     }
 }
