@@ -44,6 +44,7 @@
                     <th>Price Level</th>
                     <th>rating</th>
                     <th>Total Reviews</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -56,6 +57,7 @@
                         <th>@restaurant.price_level</th>
                         <th>@restaurant.rating</th>
                         <th>@restaurant.user_ratings_total</th>
+                        <th><button @onclick="@(x => RestaurantSelected(restaurant))" class="btn btn-dark table-btn quick-add-btn">Select restaurant</button></th>
                     </tr>
                 }
             </tbody>
@@ -73,6 +75,7 @@
                     <th>Price Level</th>
                     <th>rating</th>
                     <th>Total Reviews</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -85,6 +88,7 @@
                         <th>@museum.price_level</th>
                         <th>@museum.rating</th>
                         <th>@museum.user_ratings_total</th>
+                        <th><button @onclick="@(x => MuseumSelected(museum))" class="btn btn-dark table-btn quick-add-btn">Select museum</button></th>
                     </tr>
                 }
             </tbody>

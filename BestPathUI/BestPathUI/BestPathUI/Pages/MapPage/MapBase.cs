@@ -17,7 +17,7 @@ namespace BestPathUI.Pages.MapPage
         public IJSRuntime JSRuntime { get; set; }//this is used so we can call js methods inside our cs files
         [Inject]
         public ICitiesDataService CitiesDataService { get; set; }
-        public IEnumerable<City> Cities { get; set; }
+        public IList<City> Cities { get; set; }
         protected AddCityDialog AddCityDialog { get; set; }
         public Models.Models.User User { get; set; }
         public IList<GoogleTextSearchDTO> RestaurantSearches { get; set; } = new List<GoogleTextSearchDTO>();
@@ -45,13 +45,25 @@ namespace BestPathUI.Pages.MapPage
             Cities = (await CitiesDataService.GetItemsAsync(cityFilter.GetFilter())).ToList();
         }
 
+        protected void RestaurantSelected(GoogleTextSearchDTO restaurant)
+        {
+            this.Cities[Cities.Count() - 1].SelectedRestaurant = restaurant;
+            this.RestaurantSearches.Clear();
+            StateHasChanged();
+        }
+
+        protected void MuseumSelected(GoogleTextSearchDTO museum)
+        {
+            this.Cities[Cities.Count() - 1].SelectedMuseum = museum;
+            this.MuseumSearches.Clear();
+            StateHasChanged();
+        }
+
         public void AddCityDialog_OnDialogClose(Map_AddCity map_AddCity)
         {
             this.RestaurantSearches = map_AddCity.RestaurantSearches;
             this.MuseumSearches = map_AddCity.MuseumSearches;
-            var newList = Cities.ToList();
-            newList.Add(map_AddCity.City);
-            Cities = newList;
+            this.Cities.Add(map_AddCity.City);
             StateHasChanged();
         }
     }

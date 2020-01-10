@@ -14,6 +14,8 @@ namespace Models.Models
         public bool NeedsMuseum { get; set; }
         public string MuseumType { get; set; }
         public LocationDTO Location { get; set; }
+        public GoogleTextSearchDTO SelectedRestaurant { get; set; }
+        public GoogleTextSearchDTO SelectedMuseum { get; set; }
 
         public new CityDTO GetDTO()
         {
@@ -43,6 +45,8 @@ namespace Models.Models
             RestaurantType = "";
             StartPoint = false;
             Location = new LocationDTO();
+            SelectedMuseum = new GoogleTextSearchDTO();
+            SelectedRestaurant = new GoogleTextSearchDTO();
         }
     }
 }
