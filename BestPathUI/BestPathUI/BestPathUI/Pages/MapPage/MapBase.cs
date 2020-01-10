@@ -5,6 +5,7 @@ using Microsoft.JSInterop;
 using Models.DTO;
 using Models.Filters;
 using Models.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -66,6 +67,16 @@ namespace BestPathUI.Pages.MapPage
             this.Cities[Cities.Count() - 1].SelectedMuseum = museum;
             this.MuseumSearches.Clear();
             StateHasChanged();
+        }
+
+        protected async void ShowLocation(GoogleTextSearchDTO place)
+        {
+            await JSRuntime.InvokeVoidAsync("showLocation", new LocationDTO { lat = place.geometry.location.lat, lng = place.geometry.location.lng });
+        }
+
+        protected async void HideLocation(GoogleTextSearchDTO place)
+        {
+            await JSRuntime.InvokeVoidAsync("hideLocation");
         }
 
         public void AddCityDialog_OnDialogClose(Map_AddCity map_AddCity)

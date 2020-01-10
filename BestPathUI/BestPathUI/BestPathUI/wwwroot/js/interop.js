@@ -1,5 +1,6 @@
 var map, cityAutoComplete, mapCounter = 0;
 var city_initialized = false;
+var marker;
 
 function createMap() {
     google.maps.event.addDomListener(window, 'load', initializeMap);
@@ -66,4 +67,15 @@ function enableTextbox(chkId, txtId) {
     }
     else
         document.getElementById(txtId).disabled = true;
+}
+
+function showLocation(location) {
+    marker = new google.maps.Marker({
+        position: new google.maps.LatLng(location.lat, location.lng),
+        map: map
+    });
+}
+
+function hideLocation() {
+    marker.setMap(null);
 }

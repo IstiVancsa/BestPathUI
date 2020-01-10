@@ -50,7 +50,7 @@
             <tbody>
                 @foreach (var restaurant in RestaurantSearches)
                 {
-                    <tr>
+                    <tr @onmouseover="@(x => ShowLocation(restaurant))" @onmouseout="@(x => HideLocation(restaurant))">
                         <th>@restaurant.name</th>
                         <th>@restaurant.formatted_address</th>
                         <th>@restaurant.opening_hours.open_now</th>
@@ -81,7 +81,7 @@
             <tbody>
                 @foreach (var museum in MuseumSearches)
                 {
-                    <tr>
+                    <tr @onmouseover="@(x => ShowLocation(museum))" @onmouseout="@(x => HideLocation(museum))">
                         <th>@museum.name</th>
                         <th>@museum.formatted_address</th>
                         <th>@museum.opening_hours.open_now</th>
