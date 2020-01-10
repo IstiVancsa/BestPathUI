@@ -47,7 +47,7 @@ namespace Services
 
                 var content = new StringContent(JsonConvert.SerializeObject(citiesDTO), Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PostAsync(this.UrlApi, content);
+                HttpResponseMessage response = await client.PostAsync(this.UrlApi + "AddCities", content);
 
                 result = response.IsSuccessStatusCode;
             }

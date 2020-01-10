@@ -44,12 +44,12 @@ namespace BestPathUI.Pages.MapPage
             AddCityDialog.Show();
         }
 
-        protected async void SaveRoth()
+        protected async void SaveRoute()
         {
             await CitiesDataService.SavePathAsync(Cities);
         }
 
-        protected async void GetLastRoth()
+        protected async void GetLastRoute()
         {
             CityFilter cityFilter = new CityFilter { UserId = User.Id };
             Cities = (await CitiesDataService.GetItemsAsync(cityFilter.GetFilter())).ToList();

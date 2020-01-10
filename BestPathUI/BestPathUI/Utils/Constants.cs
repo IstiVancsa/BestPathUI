@@ -2,6 +2,6 @@
 {
     public static class Constants
     {
-        public const string BaseUrlApi = "https://localhost:44344/";
+        public const string BaseUrlApi = "https://localhost:44344/api/";
     }
 }
