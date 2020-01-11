@@ -43,11 +43,9 @@ namespace Services
                 foreach (var city in cities)
                     citiesDTO.Add(city.GetDTO());
 
-                PathDTO path = new PathDTO { cities = citiesDTO, UserId = new Guid("42001e55-c6ec-4b56-8008-0d5930895867") };
-
                 var content = new StringContent(JsonConvert.SerializeObject(citiesDTO), Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PostAsync(this.UrlApi, content);
+                HttpResponseMessage response = await client.PostAsync(this.UrlApi + "AddCities", content);
 
                 result = response.IsSuccessStatusCode;
             }
