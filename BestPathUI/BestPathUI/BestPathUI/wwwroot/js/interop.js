@@ -12,6 +12,7 @@ function createLocationAutocomplete() {
 }
 
 function initializeMap() {
+
     if (mapCounter > 0) {
         var mapOptions = {
             center: new google.maps.LatLng(47.151726, 27.587914),
@@ -21,6 +22,19 @@ function initializeMap() {
         var marker = new google.maps.Marker({ position: new google.maps.LatLng(47.151726, 27.587914), map: map });
     }
     mapCounter++;
+
+    var directionsService = new google.maps.DirectionsService();
+    var directionsRenderer = new google.maps.DirectionsRenderer({
+        draggable: true,
+        map: map,
+        panel: document.getElementById('right-panel')
+    });
+
+    calculateAndDisplayRoute(new google.maps.LatLng(47.151726, 27.587914),
+        new google.maps.LatLng(46.563195, 26.909888),
+        directionsService,
+        directionsRenderer,
+        [new google.maps.LatLng(47.1673674, 27.578843), new google.maps.LatLng(47.2088961, 26.988773)])
 }
 
 function initializeAutocompletes() {
@@ -67,3 +81,29 @@ function enableTextbox(chkId, txtId) {
     else
         document.getElementById(txtId).disabled = true;
 }
+
+function calculateAndDisplayRoute(origin, destination, service, display, waypts) {
+    var wp = []
+
+    for (var i = 0; i < waypts.length; i++) {
+        wp.push({
+            location: waypts[i]
+        })
+        console.log(wp[i])
+    }
+
+    service.route({
+        origin: origin,
+        destination: destination,
+        waypoints: wp,
+        optimizeWaypoints: true,
+        travelMode: 'DRIVING'
+    }, function (response, status) {
+        if (status == "OK") {
+            display.setDirections(response);
+        } else {
+            window.alert('Directions request failed due to ' + status);
+        }
+    })
+}
+
