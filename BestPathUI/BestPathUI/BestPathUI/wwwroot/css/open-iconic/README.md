@@ -58,7 +58,8 @@ Coloring icons is even easier. All you need to do is set the `fill` rule on the 
 }
 ```
 
-To learn more about SVG Sprites, read [Chris Coyier's guide](http://css-tricks.com/svg-sprites-use-better-icon-fonts/).
+To learn more 
+SVG Sprites, read [Chris Coyier's guide](http://css-tricks.com/svg-sprites-use-better-icon-fonts/).
 
 #### Using Open Iconic's Icon Font...
 
