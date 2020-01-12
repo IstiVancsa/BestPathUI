@@ -20,7 +20,7 @@ namespace BestPathUI.Pages.MapPage
         public ICitiesDataService CitiesDataService { get; set; }
         public IList<City> Cities { get; set; }
         protected AddCityDialog AddCityDialog { get; set; }
-        public Models.Models.User User { get; set; }
+        public Models.Models.User User { get; set; } = new Models.Models.User { Id = new Guid("42001e55-c6ec-4b56-8008-0d5930895867") };
         public IList<GoogleTextSearchDTO> RestaurantSearches { get; set; } = new List<GoogleTextSearchDTO>();
         public IList<GoogleTextSearchDTO> MuseumSearches { get; set; } = new List<GoogleTextSearchDTO>();
         protected override async Task OnInitializedAsync()
@@ -52,7 +52,7 @@ namespace BestPathUI.Pages.MapPage
         protected async void GetLastRoute()
         {
             CityFilter cityFilter = new CityFilter { UserId = User.Id };
-            Cities = (await CitiesDataService.GetItemsAsync(cityFilter.GetFilter())).ToList();
+            Cities = (await CitiesDataService.GetLastRoute(cityFilter.GetFilter())).ToList();
         }
 
         protected void RestaurantSelected(GoogleTextSearchDTO restaurant)

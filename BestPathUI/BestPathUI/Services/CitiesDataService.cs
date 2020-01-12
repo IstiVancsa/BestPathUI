@@ -4,6 +4,7 @@ using Models.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -27,6 +28,11 @@ namespace Services
                 RestaurantType = x.RestaurantType,
                 StartPoint = x.StartPoint
             };
+        }
+
+        public async Task<IList<City>> GetLastRoute(string filters)
+        {
+            return (await this.ReturnGetHttp<List<CityDTO>>(this.UrlApi + "GetLastRoute/" + filters)).Select(GetByFilterSelector).ToList();
         }
 
         public async Task<bool> SavePathAsync(IEnumerable<City> cities)
