@@ -46,10 +46,17 @@ namespace BestPathUI.Pages.MapPage
 
         protected async void ShowRoute()
         {
-            var test1 = GetStartPointGeoCoordinates();
-            var test2 = GetDestinationPointGeoCoordinates();
-            var test3 = GetIntermediatePointsGeoCoordinates();
-            await JSRuntime.InvokeVoidAsync("showRoute", GetStartPointGeoCoordinates(), GetDestinationPointGeoCoordinates(), GetIntermediatePointsGeoCoordinates());
+            var startPoint = GetStartPointGeoCoordinates();
+            var endPoint = GetDestinationPointGeoCoordinates();
+            var intermediatePoints = GetIntermediatePointsGeoCoordinates();
+            if(startPoint != null && endPoint != null)
+                await JSRuntime.InvokeVoidAsync("showRoute", startPoint, endPoint, intermediatePoints);
+        }
+
+        protected void NewRoute()
+        {
+            this.Cities.Clear();
+            StateHasChanged();
         }
 
         protected async void SaveRoute()
