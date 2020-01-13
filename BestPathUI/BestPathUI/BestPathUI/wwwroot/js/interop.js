@@ -42,7 +42,7 @@ function showRoute(origin, destination, wayPoints) {
         origin: new google.maps.LatLng(origin.lat, origin.lng),
         destination: new google.maps.LatLng(destination.lat, destination.lng),
         waypoints: javascriptWayPoints,
-        optimizeWaypoints: true,
+        optimizeWaypoints: false,
         travelMode: 'DRIVING'
     }, function (response, status) {
         if (status == "OK") {
@@ -93,30 +93,6 @@ function enableTextbox(chkId, txtId) {
     }
     else
         document.getElementById(txtId).disabled = true;
-}
-
-function calculateAndDisplayRoute(origin, destination, service, display, waypts) {
-    var wp = []
-
-    for (var i = 0; i < waypts.length; i++) {
-        wp.push({
-            location: waypts[i]
-        })
-    }
-
-    service.route({
-        origin: origin,
-        destination: destination,
-        waypoints: wp,
-        optimizeWaypoints: true,
-        travelMode: 'DRIVING'
-    }, function (response, status) {
-        if (status == "OK") {
-            display.setDirections(response);
-        } else {
-            window.alert('Directions request failed due to ' + status);
-        }
-    })
 }
 
 function showLocation(location) {
