@@ -1,7 +1,40 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
-html, body {
+html {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-image: linear-gradient(180deg, rgb(90, 102, 112) 0%, #919fab 70%);
+}
+
+.container{
+    width: 800px;
+    height: 400px;
+    position:center
+    border: 2px solid grey;
+}
+.txt {
+ 
+    margin-left: -249px;
+    padding: inherit;
+    margin-top: 156px;
+    margin-bottom: 1rem;
+    font-size: 5rem;
+    font-family: sans-serif;
+    color: linear-gradient(180deg, rgb(152, 153, 124) 0%, #6a747d 70%);
+    margin: 20px 0;
+}
+.txt2 {
+    background: linear-gradient(180deg, rgb(152, 153, 124) 0%, #6a747d 70%);
+    margin-left: -249px;
+    padding: inherit;
+    margin-top: 156px;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    font-family: sans-serif;
+    color: #081a29;
+    margin: 20px 0;
 }
 
 #exampleModal {
@@ -20,13 +53,21 @@ html, body {
 }
 
 a, .btn-link {
-    color: #0366d6;
+    color: #2d2e2f;
+}
+
+.lbl {
+    margin-top: 16px;
+    font-size: larger;
+    color: #23303a;
+    margin-left: 69px;
+    margin-bottom:10px;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #8197ad;
+    border-color: #9ea8b3;
 }
 #myMAp {
     height: 100%
@@ -38,27 +79,27 @@ app {
 }
 
 .top-row {
-    height: 3.5rem;
+    height: 2.5rem;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .main {
     flex: 1;
+    background-image: linear-gradient(180deg, rgb(90, 102, 112) 0%, #919fab 70%);
 }
 
-.main .top-row {
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #d6d5d5;
-    justify-content: flex-end;
-}
+    .main .top-row {
+        background-color:dimgrey;
+        justify-content: flex-end;
+    }
 
 .main .top-row > a {
     margin-left: 1.5rem;
 }
 
 .sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    background-image: linear-gradient(180deg, rgb(152, 153, 124) 0%, #6a747d 70%);
 }
 
 .sidebar .top-row {
@@ -128,6 +169,12 @@ app {
     color: red;
 }
 
+.buton {
+    padding: 10px;
+    margin-top: 10px;
+   
+}
+
 @media (max-width: 767.98px) {
     .main .top-row {
         display: none;
@@ -140,10 +187,11 @@ app {
     }
 
     .sidebar {
-        width: 250px;
+        width: 150px;
         height: 100vh;
         position: sticky;
         top: 0;
+        border-right: 1px solid grey;
     }
 
     .main .top-row {

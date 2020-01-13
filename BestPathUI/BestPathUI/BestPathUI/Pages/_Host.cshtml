@@ -15,11 +15,12 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
 </head>
 <body>
-    <app>
-        @(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))
-    </app>
-    <script src="_framework/blazor.server.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.39&libraries=places&key=AIzaSyAIztt-WDuygbYykfzV8akJ3DyR-jrhJRY&callback=initializeMap"></script>
-    <script async defer src="js/interop.js"></script>
+        <div style="background-image: url('./img/path.jpg');"/>
+        <app>
+            @(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))
+        </app>
+        <script src="_framework/blazor.server.js"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.39&libraries=places&key=AIzaSyAIztt-WDuygbYykfzV8akJ3DyR-jrhJRY&callback=initializeMap"></script>
+        <script async defer src="js/interop.js"></script>
 </body>
 </html>

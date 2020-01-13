@@ -16,26 +16,25 @@
             height: 100%;
             margin: 0;
             padding: 0;
+            background: inherit;
         }
     </style>
 </head>
 <body>
 
-    <div id="map_canvas" style="position: center; width: 1000px; height:500px; margin:auto; margin-top:50px"></div>
-    <div>
-        <button @onclick="@AddCity" class="btn btn-dark table-btn quick-add-btn">Add City</button>
-    </div>
-    <div>
-        <button @onclick="@ShowRoute" class="btn btn-dark table-btn quick-add-btn">Show Route</button>
-    </div>
-    <div>
-        <button @onclick="@SaveRoute" class="btn btn-dark table-btn quick-add-btn">Save Route</button>
-    </div>
-    <div>
-        <button @onclick="@NewRoute" class="btn btn-dark table-btn quick-add-btn">New Route</button>
-    </div>
-    <div>
-        <button @onclick="@GetLastRoute" class="btn btn-dark table-btn quick-add-btn">Get my last route</button>
+    <div id="map_canvas" style="position: center; width: 1000px; height:500px; margin:auto;"></div>
+    <div class="row" style=" margin-top:20px; margin-left: 66px;">
+        <div class="col-md-12" >
+            <button @onclick="@AddCity" class="btn btn-dark table-btn quick-add-btn buton">Add City</button>
+
+            <button @onclick="@ShowRoute" class="btn btn-dark table-btn quick-add-btn buton">Show Route</button>
+
+            <button @onclick="@SaveRoute" class="btn btn-dark table-btn quick-add-btn buton">Save Route</button>
+        
+            <button @onclick="@NewRoute" class="btn btn-dark table-btn quick-add-btn buton">New Route</button>
+
+            <button @onclick="@GetLastRoute" class="btn btn-dark table-btn quick-add-btn buton">Get my last route</button>
+        </div>
     </div>
     @if (this.RestaurantSearches.Count > 0)
     {
@@ -71,7 +70,7 @@
     }
     @if (this.MuseumSearches.Count > 0)
     {
-        <label>Here are couple of museums for you</label>
+        <label class="lbl">Here are couple of museums for you: </label>
         <table class="table">
             <thead>
                 <tr>
