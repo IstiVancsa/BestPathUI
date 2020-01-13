@@ -26,7 +26,9 @@ namespace Services
                 NeedsMuseum = x.NeedsMuseum,
                 NeedsRestaurant = x.NeedsRestaurant,
                 RestaurantType = x.RestaurantType,
-                StartPoint = x.StartPoint
+                StartPoint = x.StartPoint,
+                Location = x.Location,
+                UserId = x.UserId
             };
         }
 

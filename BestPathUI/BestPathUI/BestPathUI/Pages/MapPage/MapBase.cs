@@ -69,6 +69,7 @@ namespace BestPathUI.Pages.MapPage
         {
             CityFilter cityFilter = new CityFilter { UserId = User.Id };
             Cities = (await CitiesDataService.GetLastRoute(cityFilter.GetFilter())).ToList();
+            ShowRoute();
         }
 
         protected void RestaurantSelected(GoogleTextSearchDTO restaurant)

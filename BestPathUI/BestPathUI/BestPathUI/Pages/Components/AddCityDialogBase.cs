@@ -28,6 +28,8 @@ namespace BestPathUI.Pages.Components
         public IList<GoogleTextSearchDTO> RestaurantSearches { get; set; } = new List<GoogleTextSearchDTO>();
         public IList<GoogleTextSearchDTO> MuseumSearches { get; set; } = new List<GoogleTextSearchDTO>();
         private bool _autocompleteInitialized { get; set; } = false;
+        public string RestaurantType { get; set; }
+        public string MuseumType { get; set; }
 
         protected override void OnInitialized()
         {
@@ -88,14 +90,14 @@ namespace BestPathUI.Pages.Components
             };
         }
 
-        protected async void RestaurantClicked(ChangeEventArgs restaurantEvent)
+        protected void RestaurantClicked(ChangeEventArgs restaurantEvent)
         {
-            RestaurantSearches = (await GoogleDataService.TextSearch(restaurantEvent.Value.ToString() + "+Restaurant", this.City.Location)).results;
+            this.RestaurantType = restaurantEvent.Value.ToString();
         }
 
-        protected async void MuseumClicked(ChangeEventArgs restaurantEvent)
+        protected void MuseumClicked(ChangeEventArgs museumEvent)
         {
-            MuseumSearches = (await GoogleDataService.TextSearch(restaurantEvent.Value.ToString() + "+Museum", this.City.Location)).results;
+            this.MuseumType = museumEvent.Value.ToString();
         }
 
         protected async Task HandleValidSubmit()
@@ -109,11 +111,11 @@ namespace BestPathUI.Pages.Components
             }
             if (this.City.NeedsMuseum)
             {
-                map_AddCity.MuseumSearches = this.MuseumSearches;
+                map_AddCity.MuseumSearches = (await GoogleDataService.TextSearch(MuseumType + "+Museum", this.City.Location)).results;
             }
             if (this.City.NeedsRestaurant)
             {
-                map_AddCity.RestaurantSearches = this.RestaurantSearches;
+                map_AddCity.RestaurantSearches = (await GoogleDataService.TextSearch(RestaurantType + "+Restaurant", this.City.Location)).results;
             }
 
             map_AddCity.City = this.City;
