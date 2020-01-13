@@ -53,9 +53,10 @@ namespace BestPathUI.Pages.MapPage
                 await JSRuntime.InvokeVoidAsync("showRoute", startPoint, endPoint, intermediatePoints);
         }
 
-        protected void NewRoute()
+        protected async void NewRoute()
         {
             this.Cities.Clear();
+            await JSRuntime.InvokeVoidAsync("removeDirections");
             StateHasChanged();
         }
 

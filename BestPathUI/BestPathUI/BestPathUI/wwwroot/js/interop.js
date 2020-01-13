@@ -1,15 +1,15 @@
 var map, cityAutoComplete, mapCounter = 0;
 var city_initialized = false;
 var marker;
+var directionsService;
+var directionsRenderer;
 
 function createMap() {
     google.maps.event.addDomListener(window, 'load', initializeMap);
 }
 
 function createLocationAutocomplete() {
-    console.log("create autocomplete");
     google.maps.event.addDomListener(window, 'load', initializeLocationAutocomplete);
-    console.log('create autocomplete finished');
 }
 
 function initializeMap() {
@@ -22,25 +22,11 @@ function initializeMap() {
         map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
     }
     mapCounter++;
-
-    //console.log(document.getElementById('right-panel'));
-    //var directionsService = new google.maps.DirectionsService();
-    //var directionsRenderer = new google.maps.DirectionsRenderer({
-    //    draggable: true,
-    //    map: map,
-    //    panel: document.getElementById('right-panel')
-    //});
-
-    //calculateAndDisplayRoute(new google.maps.LatLng(47.151726, 27.587914),
-    //    new google.maps.LatLng(46.563195, 26.909888),
-    //    directionsService,
-    //    directionsRenderer,
-    //    [new google.maps.LatLng(47.1673674, 27.578843), new google.maps.LatLng(47.2088961, 26.988773)])
 }
 
 function showRoute(origin, destination, wayPoints) {
-    var directionsService = new google.maps.DirectionsService();
-    var directionsRenderer = new google.maps.DirectionsRenderer({
+    directionsService = new google.maps.DirectionsService();
+    directionsRenderer = new google.maps.DirectionsRenderer({
         draggable: true,
         map: map
     });
@@ -50,7 +36,6 @@ function showRoute(origin, destination, wayPoints) {
         javascriptWayPoints.push({
             location: new google.maps.LatLng(wayPoints[i].lat, wayPoints[i].lng)
         })
-        console.log(javascriptWayPoints[i]);
     }
 
     directionsService.route({
@@ -69,10 +54,9 @@ function showRoute(origin, destination, wayPoints) {
 }
 
 function initializeAutocompletes() {
-    console.log('initializeLocationAutocomplete started');
 
     var options = {
-        types: ['establishment']
+        types: ['(cities)']
     }
 
     var input = document.getElementById('city_search');
@@ -100,8 +84,6 @@ function initializeAutocompletes() {
         input.value = place.name;
         city_initialized = true;
     });
-
-    console.log('initializeLocationAutocomplete finished');
 }
 
 function enableTextbox(chkId, txtId) {
@@ -120,7 +102,6 @@ function calculateAndDisplayRoute(origin, destination, service, display, waypts)
         wp.push({
             location: waypts[i]
         })
-        console.log(wp[i])
     }
 
     service.route({
@@ -147,4 +128,8 @@ function showLocation(location) {
 
 function hideLocation() {
     marker.setMap(null);
+}
+
+function removeDirections() {
+    directionsRenderer.setMap(null);
 }
