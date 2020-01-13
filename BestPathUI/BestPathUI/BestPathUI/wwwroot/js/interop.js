@@ -20,22 +20,52 @@ function initializeMap() {
             zoom: 15
         };
         map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-        var marker = new google.maps.Marker({ position: new google.maps.LatLng(47.151726, 27.587914), map: map });
     }
     mapCounter++;
 
+    //console.log(document.getElementById('right-panel'));
+    //var directionsService = new google.maps.DirectionsService();
+    //var directionsRenderer = new google.maps.DirectionsRenderer({
+    //    draggable: true,
+    //    map: map,
+    //    panel: document.getElementById('right-panel')
+    //});
+
+    //calculateAndDisplayRoute(new google.maps.LatLng(47.151726, 27.587914),
+    //    new google.maps.LatLng(46.563195, 26.909888),
+    //    directionsService,
+    //    directionsRenderer,
+    //    [new google.maps.LatLng(47.1673674, 27.578843), new google.maps.LatLng(47.2088961, 26.988773)])
+}
+
+function showRoute(origin, destination, wayPoints) {
     var directionsService = new google.maps.DirectionsService();
     var directionsRenderer = new google.maps.DirectionsRenderer({
         draggable: true,
-        map: map,
-        panel: document.getElementById('right-panel')
+        map: map
     });
 
-    calculateAndDisplayRoute(new google.maps.LatLng(47.151726, 27.587914),
-        new google.maps.LatLng(46.563195, 26.909888),
-        directionsService,
-        directionsRenderer,
-        [new google.maps.LatLng(47.1673674, 27.578843), new google.maps.LatLng(47.2088961, 26.988773)])
+    var javascriptWayPoints = [];
+    for (var i = 0; i < wayPoints.length; i++) {
+        javascriptWayPoints.push({
+            location: new google.maps.LatLng(wayPoints[i].lat, wayPoints[i].lng)
+        })
+        console.log(javascriptWayPoints[i]);
+    }
+
+    directionsService.route({
+        origin: new google.maps.LatLng(origin.lat, origin.lng),
+        destination: new google.maps.LatLng(destination.lat, destination.lng),
+        waypoints: javascriptWayPoints,
+        optimizeWaypoints: true,
+        travelMode: 'DRIVING'
+    }, function (response, status) {
+        if (status == "OK") {
+            directionsRenderer.setDirections(response);
+        } else {
+            window.alert('Directions request failed due to ' + status);
+        }
+    })
 }
 
 function initializeAutocompletes() {

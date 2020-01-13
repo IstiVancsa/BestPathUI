@@ -90,24 +90,22 @@ namespace BestPathUI.Pages.Components
 
         protected async void RestaurantClicked(ChangeEventArgs restaurantEvent)
         {
-            this.City.Location = Location;
             RestaurantSearches = (await GoogleDataService.TextSearch(restaurantEvent.Value.ToString() + "+Restaurant", this.City.Location)).results;
-            Console.WriteLine("Do something");
         }
 
         protected async void MuseumClicked(ChangeEventArgs restaurantEvent)
         {
-            this.City.Location = Location;
             MuseumSearches = (await GoogleDataService.TextSearch(restaurantEvent.Value.ToString() + "+Museum", this.City.Location)).results;
-            Console.WriteLine("Do something");
         }
 
         protected async Task HandleValidSubmit()
         {
+            this.City.Location = Location;
+
             Map_AddCity map_AddCity = new Map_AddCity();
             if (this.City.NeedsHotel)
             {
-                Console.WriteLine("show hotels in a table and a marker on the map");
+                Console.WriteLine("show hotels in a table and a marker on the map");//TODO do exactly the same like at museums or restaurants
             }
             if (this.City.NeedsMuseum)
             {

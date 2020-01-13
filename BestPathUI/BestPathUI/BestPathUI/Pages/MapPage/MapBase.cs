@@ -25,7 +25,7 @@ namespace BestPathUI.Pages.MapPage
         public IList<GoogleTextSearchDTO> MuseumSearches { get; set; } = new List<GoogleTextSearchDTO>();
         protected override async Task OnInitializedAsync()
         {
-            Cities = new List<City>();//we might change this
+            Cities = new List<City>();
         }
         private bool _mapInitialized { get; set; } = false;
 
@@ -42,6 +42,14 @@ namespace BestPathUI.Pages.MapPage
         protected void AddCity()
         {
             AddCityDialog.Show();
+        }
+
+        protected async void ShowRoute()
+        {
+            var test1 = GetStartPointGeoCoordinates();
+            var test2 = GetDestinationPointGeoCoordinates();
+            var test3 = GetIntermediatePointsGeoCoordinates();
+            await JSRuntime.InvokeVoidAsync("showRoute", GetStartPointGeoCoordinates(), GetDestinationPointGeoCoordinates(), GetIntermediatePointsGeoCoordinates());
         }
 
         protected async void SaveRoute()
@@ -86,6 +94,27 @@ namespace BestPathUI.Pages.MapPage
             this.Cities.Add(map_AddCity.City);
             //we have to set the user id of map_addCity.CIty
             StateHasChanged();
+        }
+
+        public LocationDTO GetStartPointGeoCoordinates()
+        {
+            return Cities.Where(x => x.StartPoint)
+                         .Select(x => x.Location)
+                         .FirstOrDefault();
+        }
+
+        public LocationDTO GetDestinationPointGeoCoordinates()
+        {
+            return Cities.Where(x => x.DestinationPoint)
+                         .Select(x => x.Location)
+                         .FirstOrDefault();
+        }
+
+        public IList<LocationDTO> GetIntermediatePointsGeoCoordinates()
+        {
+            return Cities.Where(x => !x.DestinationPoint && !x.StartPoint)
+                         .Select(x => x.Location)
+                         .ToList();
         }
     }
 }
