@@ -1,12 +1,19 @@
 ﻿using Models.DTO;
+using Models.Extension;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Models.Models
 {
     public class City : BaseModel
     {
+        [Required]
+        [Display(Name = "CityName")]
         public string CityName { get; set; }
+        [Unlike("StartPoint")]
         public bool DestinationPoint { get; set; }
+
+        [Unlike("DestinationPoint")]
         public bool StartPoint { get; set; }
         public bool NeedsHotel { get; set; }
         public bool NeedsRestaurant { get; set; }

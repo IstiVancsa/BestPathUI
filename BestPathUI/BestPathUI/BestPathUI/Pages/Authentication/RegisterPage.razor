@@ -1,0 +1,33 @@
+﻿@layout AuthLayout
+@page "/register"
+@inherits RegisterBase
+
+<div class="row">
+    <div class="col-12">
+        <h2>Create a new account</h2>
+        <EditForm Model="RequestDTO" OnValidSubmit="RegisterUser">
+            <RadzenCard>
+                <DataAnnotationsValidator />
+
+                <label>Email</label>
+                <RadzenTextBox @bind-Value="RequestDTO.Email"></RadzenTextBox>
+
+                <label>Password</label>
+                <RadzenTextBox @bind-Value="RequestDTO.Password"></RadzenTextBox>
+
+                <label>Confirm Password</label>
+                <RadzenTextBox @bind-Value="RequestDTO.ConfirmPassword"></RadzenTextBox>
+
+                <ValidationSummary />
+                <hr />
+                <RadzenButton ButtonType="Radzen.ButtonType.Submit" Text="Register"
+                              ButtonStyle="Radzen.ButtonStyle.Primary" class="btn-block m2-2" />
+                <div style="text-align:center">
+                    <a href="/Login">
+                        Already have an account ?<br />Go to the login page
+                    </a>
+                </div>
+            </RadzenCard>
+        </EditForm>
+    </div>
+</div>

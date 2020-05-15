@@ -18,6 +18,8 @@ namespace BestPathUI.Pages.MapPage
         public IJSRuntime JSRuntime { get; set; }//this is used so we can call js methods inside our cs files
         [Inject]
         public ICitiesDataService CitiesDataService { get; set; }
+        [Inject]
+        public ISessionStorageDataService SessionStorage { get; set; }
         public IList<City> Cities { get; set; }
         protected AddCityDialog AddCityDialog { get; set; }
         public Models.Models.User User { get; set; } = new Models.Models.User { Id = new Guid("42001e55-c6ec-4b56-8008-0d5930895867") };
@@ -26,6 +28,7 @@ namespace BestPathUI.Pages.MapPage
         protected override async Task OnInitializedAsync()
         {
             Cities = new List<City>();
+            string Token = await SessionStorage.GetItemAsync<string>("Token");
         }
         private bool _mapInitialized { get; set; } = false;
 

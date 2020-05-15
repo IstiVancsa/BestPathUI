@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using Microsoft.Extensions.Configuration;
 using Models.DTO;
 using Models.Models;
 using System.Net.Http;
@@ -7,7 +8,7 @@ namespace Services
 {
     public class ReviewDataService : RestDataService<Review, ReviewDTO>, IReviewDataService
     {
-        public ReviewDataService(HttpClient httpClient) : base(httpClient, "Review")
+        public ReviewDataService(HttpClient httpClient, IConfiguration configuration) : base(httpClient, configuration, "Review")
         {
             GetByFilterSelector = x => new Review
             {

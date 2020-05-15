@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Models;
 using Models.Interfaces;
 using System.Linq.Expressions;
+using Microsoft.Extensions.Configuration;
 
 namespace Services
 {
@@ -20,15 +21,16 @@ namespace Services
     {
         public Func<DTOModel, TModel> GetByFilterSelector = null;
         private HttpClient _httpClient;
-
+        public IConfiguration Configuration { get; }
         public string UrlApi = "";
         //public string Token => Token must be store in the app somewhere
-        public RestDataService(HttpClient httpClient, string partialUrl = null)
+        public RestDataService(HttpClient httpClient, IConfiguration configuration, string partialUrl = null)
         {
             if (string.IsNullOrEmpty(partialUrl))
                 partialUrl = typeof(TModel).Name.Replace("Model", "");
 
-            this.UrlApi = Utils.Constants.BaseUrlApi + partialUrl + "/";
+            Configuration = configuration;
+            this.UrlApi = Configuration["APPPaths:BestPathAPI"] + partialUrl + "/";
             this._httpClient = httpClient;
         }
         public async Task<bool> AddItemAsync(TModel item)

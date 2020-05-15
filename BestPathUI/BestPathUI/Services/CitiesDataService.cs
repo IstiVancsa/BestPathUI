@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using Microsoft.Extensions.Configuration;
 using Models.DTO;
 using Models.Models;
 using Newtonsoft.Json;
@@ -14,7 +15,7 @@ namespace Services
 {
     public class CitiesDataService : RestDataService<City, CityDTO>, ICitiesDataService
     {
-        public CitiesDataService(HttpClient httpClient) : base(httpClient, "cities")
+        public CitiesDataService(HttpClient httpClient, IConfiguration configuration) : base(httpClient, configuration, "cities")
         {
             GetByFilterSelector = x => new City
             {

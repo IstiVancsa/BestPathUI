@@ -28,16 +28,21 @@ namespace BestPathUI
             services.AddSingleton<WeatherForecastService>();
             services.AddHttpClient<ICitiesDataService, CitiesDataService>(client =>
             {
-                client.BaseAddress = new Uri("https://localhost:44344/");
+                client.BaseAddress = new Uri(Configuration["APPPaths:LocalHost"]);
             });
             services.AddHttpClient<IReviewDataService, ReviewDataService>(client =>
             {
-                client.BaseAddress = new Uri("https://localhost:44344/");
+                client.BaseAddress = new Uri(Configuration["APPPaths:LocalHost"]);
             });
             services.AddHttpClient<IGoogleDataService, GoogleDataService>(client =>
             {
-                client.BaseAddress = new Uri("https://localhost:44344/");
+                client.BaseAddress = new Uri(Configuration["APPPaths:LocalHost"]);
             });
+            services.AddHttpClient<IAuthenticationDataService, AuthenticationDataService>(client =>
+            {
+                client.BaseAddress = new Uri(Configuration["APPPaths:LocalHost"]);
+            });
+            services.AddBlazoredSessionStorage();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
