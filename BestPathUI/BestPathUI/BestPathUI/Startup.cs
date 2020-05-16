@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using BestPathUI.Data;
 using System;
 using Services;
 using Interfaces;
@@ -25,7 +24,6 @@ namespace BestPathUI
         {
             services.AddRazorPages();
             services.AddServerSideBlazor().AddCircuitOptions(options => { options.DetailedErrors = true; });
-            services.AddSingleton<WeatherForecastService>();
             services.AddHttpClient<ICitiesDataService, CitiesDataService>(client =>
             {
                 client.BaseAddress = new Uri(Configuration["APPPaths:LocalHost"]);

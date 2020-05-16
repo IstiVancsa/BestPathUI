@@ -25,6 +25,8 @@ namespace BestPathUI.Pages.MapPage
         public Models.Models.User User { get; set; } = new Models.Models.User { Id = new Guid("42001e55-c6ec-4b56-8008-0d5930895867") };
         public IList<GoogleTextSearchDTO> RestaurantSearches { get; set; } = new List<GoogleTextSearchDTO>();
         public IList<GoogleTextSearchDTO> MuseumSearches { get; set; } = new List<GoogleTextSearchDTO>();
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
         protected override async Task OnInitializedAsync()
         {
             Cities = new List<City>();
@@ -39,8 +41,9 @@ namespace BestPathUI.Pages.MapPage
                 await JSRuntime.InvokeVoidAsync("createMap");
                 await JSRuntime.InvokeVoidAsync("initializeMap");
             }
-            
-            //string Token = await SessionStorage.GetItemAsync<string>("Token");
+            var Token = await JSRuntime.InvokeAsync<string>("stateManager.load", "Token");
+            if(Token == null)
+                NavigationManager.NavigateTo("/Login");
         }
 
         protected void AddCity()

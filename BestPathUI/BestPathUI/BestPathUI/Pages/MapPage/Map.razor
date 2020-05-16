@@ -21,84 +21,88 @@
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="page-title">Best Path</div>
+        <div id="map_canvas" class="canvas"></div>
+        <div class="row page-btns mt-20 mb-20">
+            <div class="col-md-12 text-center">
+                <button @onclick="@AddCity" class="btn btn-dark table-btn quick-add-btn buton canvas-btn">Add City</button>
 
-    <div id="map_canvas" style="position: center; width: 1000px; height:500px; margin:auto;"></div>
-    <div class="row" style=" margin-top:20px; margin-left: 66px;">
-        <div class="col-md-12" >
-            <button @onclick="@AddCity" class="btn btn-dark table-btn quick-add-btn buton">Add City</button>
+                <button @onclick="@ShowRoute" class="btn btn-dark table-btn quick-add-btn buton canvas-btn">Show Route</button>
 
-            <button @onclick="@ShowRoute" class="btn btn-dark table-btn quick-add-btn buton">Show Route</button>
+                <button @onclick="@SaveRoute" class="btn btn-dark table-btn quick-add-btn buton canvas-btn">Save Route</button>
 
-            <button @onclick="@SaveRoute" class="btn btn-dark table-btn quick-add-btn buton">Save Route</button>
-        
-            <button @onclick="@NewRoute" class="btn btn-dark table-btn quick-add-btn buton">New Route</button>
+                <button @onclick="@NewRoute" class="btn btn-dark table-btn quick-add-btn buton canvas-btn">New Route</button>
 
-            <button @onclick="@GetLastRoute" class="btn btn-dark table-btn quick-add-btn buton">Get my last route</button>
+                <button @onclick="@GetLastRoute" class="btn btn-dark table-btn quick-add-btn buton canvas-btn">Get my last route</button>
+            </div>
         </div>
-    </div>
-    @if (this.RestaurantSearches.Count > 0)
-    {
-        <label>Here are couple of restaurants for you</label>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Oppened</th>
-                    <th>Price Level</th>
-                    <th>rating</th>
-                    <th>Total Reviews</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var restaurant in RestaurantSearches)
-                {
-                    <tr @onmouseover="@(x => ShowLocation(restaurant))" @onmouseout="@(x => HideLocation(restaurant))">
-                        <th>@restaurant.name</th>
-                        <th>@restaurant.formatted_address</th>
-                        <th>@restaurant.opening_hours.open_now</th>
-                        <th>@restaurant.price_level</th>
-                        <th>@restaurant.rating</th>
-                        <th>@restaurant.user_ratings_total</th>
-                        <th><button @onclick="@(x => RestaurantSelected(restaurant))" class="btn btn-dark table-btn quick-add-btn">Select restaurant</button></th>
+
+        @if (this.RestaurantSearches.Count > 0)
+        {
+            <h3 class="text-center mt-20">Here are couple of restaurants for you</h3>
+
+            <table class="table mt-20 mb-20">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Oppened</th>
+                        <th>Price Level</th>
+                        <th>rating</th>
+                        <th>Total Reviews</th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    }
-    @if (this.MuseumSearches.Count > 0)
-    {
-        <label class="lbl">Here are couple of museums for you: </label>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Oppened</th>
-                    <th>Price Level</th>
-                    <th>rating</th>
-                    <th>Total Reviews</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var museum in MuseumSearches)
-                {
-                    <tr @onmouseover="@(x => ShowLocation(museum))" @onmouseout="@(x => HideLocation(museum))">
-                        <th>@museum.name</th>
-                        <th>@museum.formatted_address</th>
-                        <th>@museum.opening_hours.open_now</th>
-                        <th>@museum.price_level</th>
-                        <th>@museum.rating</th>
-                        <th>@museum.user_ratings_total</th>
-                        <th><button @onclick="@(x => MuseumSelected(museum))" class="btn btn-dark table-btn quick-add-btn">Select museum</button></th>
+                </thead>
+                <tbody>
+                    @foreach (var restaurant in RestaurantSearches)
+                    {
+                        <tr @onmouseover="@(x => ShowLocation(restaurant))" @onmouseout="@(x => HideLocation(restaurant))">
+                            <td>@restaurant.name</td>
+                            <td>@restaurant.formatted_address</td>
+                            <td>@restaurant.opening_hours.open_now</td>
+                            <td>@restaurant.price_level</td>
+                            <td>@restaurant.rating</td>
+                            <td>@restaurant.user_ratings_total</td>
+                            <td><button @onclick="@(x => RestaurantSelected(restaurant))" class="btn btn-dark table-btn quick-add-btn">Select restaurant</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        @if (this.MuseumSearches.Count > 0)
+        {
+            <h3 class="text-center mt-20">Here are couple of museums for you: </h3>
+            <table class="table mt-20">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Oppened</th>
+                        <th>Price Level</th>
+                        <th>rating</th>
+                        <th>Total Reviews</th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    }
+                </thead>
+                <tbody>
+                    @foreach (var museum in MuseumSearches)
+                    {
+                        <tr @onmouseover="@(x => ShowLocation(museum))" @onmouseout="@(x => HideLocation(museum))">
+                            <th>@museum.name</th>
+                            <th>@museum.formatted_address</th>
+                            <th>@museum.opening_hours.open_now</th>
+                            <th>@museum.price_level</th>
+                            <th>@museum.rating</th>
+                            <th>@museum.user_ratings_total</th>
+                            <th><button @onclick="@(x => MuseumSelected(museum))" class="btn btn-dark table-btn quick-add-btn">Select museum</button></th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
 </body>
 </html>
 

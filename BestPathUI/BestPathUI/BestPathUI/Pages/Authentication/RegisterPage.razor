@@ -4,25 +4,25 @@
 
 <div class="row">
     <div class="col-12">
-        <h2>Create a new account</h2>
+        <h2 class="text-center">Create a new account</h2>
         <EditForm Model="RequestDTO" OnValidSubmit="RegisterUser">
             <RadzenCard>
                 <DataAnnotationsValidator />
 
-                <label>Email</label>
+                <label class="mt-10">Email</label>
                 <RadzenTextBox @bind-Value="RequestDTO.Email"></RadzenTextBox>
 
-                <label>Password</label>
+                <label class="mt-10">Password</label>
                 <RadzenTextBox @bind-Value="RequestDTO.Password"></RadzenTextBox>
 
-                <label>Confirm Password</label>
+                <label class="mt-10">Confirm Password</label>
                 <RadzenTextBox @bind-Value="RequestDTO.ConfirmPassword"></RadzenTextBox>
 
                 <ValidationSummary />
                 <hr />
                 <RadzenButton ButtonType="Radzen.ButtonType.Submit" Text="Register"
                               ButtonStyle="Radzen.ButtonStyle.Primary" class="btn-block m2-2" />
-                <div style="text-align:center">
+                <div class="text-center register-btn">
                     <a href="/Login">
                         Already have an account ?<br />Go to the login page
                     </a>
