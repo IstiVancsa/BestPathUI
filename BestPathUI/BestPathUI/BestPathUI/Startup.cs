@@ -42,7 +42,7 @@ namespace BestPathUI
             {
                 client.BaseAddress = new Uri(Configuration["APPPaths:LocalHost"]);
             });
-            services.AddBlazoredSessionStorage();
+            //services.AddBlazoredSessionStorage();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

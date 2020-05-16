@@ -1,4 +1,5 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
+﻿@inject IJSRuntime JSRuntime
+<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">BestPathUI</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -17,7 +18,7 @@
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Map
             </NavLink>
             <NavLink class="nav-link" href="login">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> @AuthenticationButtonText
+                <span class="oi oi-list-rich" aria-hidden="true"></span>@AuthenticationButtonText
             </NavLink>
         </li>
     </ul>
@@ -26,15 +27,25 @@
 @code {
     bool collapseNavMenu = true;
     string AuthenticationButtonText = "Login";
+    bool AuthenticationTextSet = false;
 
     string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    public NavMenu()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        //check if client has a token
-        if (true)
+        if (!AuthenticationTextSet)
         {
-            AuthenticationButtonText = "Log out";
+            string localToken = await JSRuntime.InvokeAsync<string>("stateManager.load", "Token");
+            if (localToken != null)
+            {
+                AuthenticationButtonText = "Log out";
+            }
+            else
+            {
+                AuthenticationButtonText = "Login";
+            }
+            StateHasChanged();
+            AuthenticationTextSet = true;
         }
     }
 

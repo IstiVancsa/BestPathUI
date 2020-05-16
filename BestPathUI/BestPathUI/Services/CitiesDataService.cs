@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using Microsoft.Extensions.Configuration;
+using Microsoft.JSInterop;
 using Models.DTO;
 using Models.Models;
 using Newtonsoft.Json;
@@ -15,7 +16,7 @@ namespace Services
 {
     public class CitiesDataService : RestDataService<City, CityDTO>, ICitiesDataService
     {
-        public CitiesDataService(HttpClient httpClient, IConfiguration configuration) : base(httpClient, configuration, "cities")
+        public CitiesDataService(HttpClient httpClient, IConfiguration configuration, IJSRuntime JSRuntime) : base(httpClient, configuration, JSRuntime, "cities")
         {
             GetByFilterSelector = x => new City
             {
@@ -46,7 +47,7 @@ namespace Services
                 client.BaseAddress = new Uri(this.UrlApi);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //this.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(this.Token);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.Token);
 
                 IList<CityDTO> citiesDTO = new List<CityDTO>();
                 foreach (var city in cities)

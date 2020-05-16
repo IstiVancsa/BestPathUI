@@ -12,6 +12,7 @@ using Models;
 using Models.Interfaces;
 using System.Linq.Expressions;
 using Microsoft.Extensions.Configuration;
+using Microsoft.JSInterop;
 
 namespace Services
 {
@@ -21,10 +22,11 @@ namespace Services
     {
         public Func<DTOModel, TModel> GetByFilterSelector = null;
         private HttpClient _httpClient;
+        private IJSRuntime _jSRuntime;
         public IConfiguration Configuration { get; }
         public string UrlApi = "";
-        //public string Token => Token must be store in the app somewhere
-        public RestDataService(HttpClient httpClient, IConfiguration configuration, string partialUrl = null)
+        public string Token { get; set; }
+        public RestDataService(HttpClient httpClient, IConfiguration configuration, IJSRuntime JSRuntime, string partialUrl = null)
         {
             if (string.IsNullOrEmpty(partialUrl))
                 partialUrl = typeof(TModel).Name.Replace("Model", "");
@@ -32,6 +34,12 @@ namespace Services
             Configuration = configuration;
             this.UrlApi = Configuration["APPPaths:BestPathAPI"] + partialUrl + "/";
             this._httpClient = httpClient;
+            _jSRuntime = JSRuntime;
+            GetToken();
+        }
+        private async Task GetToken()
+        {
+            Token = await _jSRuntime.InvokeAsync<string>("stateManager.load", "Token");
         }
         public async Task<bool> AddItemAsync(TModel item)
         {
@@ -41,7 +49,7 @@ namespace Services
                 client.BaseAddress = new Uri(this.UrlApi);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //this.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(this.Token);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.Token);
 
                 var content = new StringContent(JsonConvert.SerializeObject(item.GetDTO()), Encoding.UTF8, "application/json");
 
@@ -56,10 +64,12 @@ namespace Services
         public async Task<bool> DeleteItemAsync(int id)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(this.UrlApi + id);
+            request.PreAuthenticate = true;
+            request.Headers.Add("Authorization", "Bearer " + this.Token);
             request.Method = "DELETE";
             request.ContentType = "application/json";
-
             var response = (await request.GetResponseAsync()) as HttpWebResponse;
+            response.Close();
             return response.StatusCode == HttpStatusCode.OK;
         }
 
@@ -83,7 +93,7 @@ namespace Services
             return await this.ReturnGetHttp<List<BaseModel>>(this.UrlApi + "GetBaseModel/");
         }
 
-        
+
 
         public async Task<bool> UpdateItemAsync(TModel item)
         {
@@ -91,7 +101,7 @@ namespace Services
 
             var serializedItem = JsonConvert.SerializeObject(item.GetDTO());
             var content = new StringContent(serializedItem, Encoding.UTF8, "application/json");
-
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.Token);
             var response = await this._httpClient.PutAsync(uri, content);
             return response.IsSuccessStatusCode;
         }
@@ -103,8 +113,7 @@ namespace Services
             var uri = new Uri(string.Format(url));
             try
             {
-
-                //this.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(this.Token);
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.Token);
                 var response = await this._httpClient.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
