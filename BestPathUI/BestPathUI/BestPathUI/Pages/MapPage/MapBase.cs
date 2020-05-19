@@ -5,6 +5,7 @@ using Microsoft.JSInterop;
 using Models.DTO;
 using Models.Filters;
 using Models.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +54,7 @@ namespace BestPathUI.Pages.MapPage
 
         protected async void ShowRoute()
         {
+            await JSRuntime.InvokeVoidAsync("removeDirections");
             var startPoint = GetStartPointGeoCoordinates();
             var endPoint = GetDestinationPointGeoCoordinates();
             var intermediatePoints = GetIntermediatePointsGeoCoordinates();
@@ -64,12 +66,14 @@ namespace BestPathUI.Pages.MapPage
         {
             this.Cities.Clear();
             await JSRuntime.InvokeVoidAsync("removeDirections");
+            await JSRuntime.InvokeVoidAsync("stateManager.remove", "Cities");
             StateHasChanged();
         }
 
         protected async void SaveRoute()
         {
             await CitiesDataService.SavePathAsync(Cities);
+            await JSRuntime.InvokeVoidAsync("stateManager.remove", "Cities");
         }
 
         protected async void GetLastRoute()
@@ -79,17 +83,39 @@ namespace BestPathUI.Pages.MapPage
             ShowRoute();
         }
 
-        protected void RestaurantSelected(GoogleTextSearchDTO restaurant)
+        protected async void GetUnsavedRoute()
+        {
+            var serializedCities = await JSRuntime.InvokeAsync<string>("stateManager.load", "Cities");
+            this.Cities = JsonConvert.DeserializeObject<List<City>>(serializedCities);
+            ShowRoute();
+        }
+
+        protected async void RestaurantSelected(GoogleTextSearchDTO restaurant)
         {
             this.Cities[Cities.Count() - 1].SelectedRestaurant = restaurant;
             this.RestaurantSearches.Clear();
+            if (this.MuseumSearches.Count == 0 && this.RestaurantSearches.Count == 0)
+            {
+                var serializedCities = JsonConvert.SerializeObject(this.Cities);
+                await JSRuntime.InvokeVoidAsync("stateManager.remove", "Cities");
+                await JSRuntime.InvokeVoidAsync("stateManager.save", "Cities", serializedCities);
+            }
+            await JSRuntime.InvokeVoidAsync("hideLocation");
             StateHasChanged();
         }
 
-        protected void MuseumSelected(GoogleTextSearchDTO museum)
+        protected async void MuseumSelected(GoogleTextSearchDTO museum)
         {
             this.Cities[Cities.Count() - 1].SelectedMuseum = museum;
             this.MuseumSearches.Clear();
+            //Check if user selected all from the tables
+            if(this.MuseumSearches.Count == 0 && this.RestaurantSearches.Count == 0)
+            {
+                var serializedCities = JsonConvert.SerializeObject(this.Cities);
+                await JSRuntime.InvokeVoidAsync("stateManager.remove", "Cities");
+                await JSRuntime.InvokeVoidAsync("stateManager.save", "Cities", serializedCities);
+            }
+            await JSRuntime.InvokeVoidAsync("hideLocation");
             StateHasChanged();
         }
 
@@ -103,11 +129,17 @@ namespace BestPathUI.Pages.MapPage
             await JSRuntime.InvokeVoidAsync("hideLocation");
         }
 
-        public void AddCityDialog_OnDialogClose(Map_AddCity map_AddCity)
+        public async void AddCityDialog_OnDialogClose(Map_AddCity map_AddCity)
         {
             this.RestaurantSearches = map_AddCity.RestaurantSearches;
             this.MuseumSearches = map_AddCity.MuseumSearches;
             this.Cities.Add(map_AddCity.City);
+            if (this.MuseumSearches.Count == 0 && this.RestaurantSearches.Count == 0)
+            {
+                var serializedCities = JsonConvert.SerializeObject(this.Cities);
+                await JSRuntime.InvokeVoidAsync("stateManager.remove", "Cities");
+                await JSRuntime.InvokeVoidAsync("stateManager.save", "Cities", serializedCities);
+            }
             //we have to set the user id of map_addCity.CIty
             StateHasChanged();
         }

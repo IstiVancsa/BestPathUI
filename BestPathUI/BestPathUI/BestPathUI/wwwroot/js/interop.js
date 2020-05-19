@@ -107,6 +107,8 @@ function hideLocation() {
 }
 
 function removeDirections() {
+    if (typeof marker != "undefined")
+        marker.setMap(null);
     if (typeof directionsRenderer != "undefined")
         directionsRenderer.setMap(null);
 }
