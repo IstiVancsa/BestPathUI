@@ -38,11 +38,19 @@ namespace Models.Extension
 
                 var otherPropertyValue = otherProperty
                     .GetValue(validationContext.ObjectInstance, null);
-
-                if (value.Equals(otherPropertyValue))
+                if (otherPropertyValue.GetType() == typeof(bool))
                 {
-                    return new ValidationResult(
+                    if (value.Equals(otherPropertyValue) && value.Equals(true))
+                        return new ValidationResult(
                         FormatErrorMessage(validationContext.DisplayName));
+                }
+                else
+                {
+                    if (value.Equals(otherPropertyValue))
+                    {
+                        return new ValidationResult(
+                            FormatErrorMessage(validationContext.DisplayName));
+                    }
                 }
             }
 

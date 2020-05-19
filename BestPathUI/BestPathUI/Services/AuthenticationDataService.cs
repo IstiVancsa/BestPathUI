@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Services
@@ -27,13 +28,13 @@ namespace Services
         public async Task<RegisterResultDTO> Register(RegisterRequestDTO item)
         {
             var result = new RegisterResultDTO { Successful = false };
-            _httpClient.BaseAddress = new Uri(this.UrlApi + "Register");
-            _httpClient.DefaultRequestHeaders.Accept.Clear();
-            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+            var request = new HttpRequestMessage(HttpMethod.Post, this.UrlApi + "Register");
+            request.Headers.Accept.Clear();
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var content = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json");
-
-            HttpResponseMessage response = await _httpClient.PostAsync(this.UrlApi + "Register", content);
+            request.Content = content;
+            //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await _httpClient.SendAsync(request, CancellationToken.None);
 
             string str = await response.Content.ReadAsStringAsync();
             result = JsonConvert.DeserializeObject<RegisterResultDTO>(str);
@@ -43,14 +44,13 @@ namespace Services
         public async Task<LoginResultDTO> Login(LoginRequestDTO item)
         {
             var result = new LoginResultDTO { Successful = false };
-            _httpClient.BaseAddress = new Uri(this.UrlApi + "Login");
-            _httpClient.DefaultRequestHeaders.Accept.Clear();
-            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //this.client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(this.Token);
-
+            var request = new HttpRequestMessage(HttpMethod.Post, this.UrlApi + "Login");
+            request.Headers.Accept.Clear();
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var content = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json");
-
-            HttpResponseMessage response = await _httpClient.PostAsync(this.UrlApi + "Login", content);
+            request.Content = content;
+            //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await _httpClient.SendAsync(request, CancellationToken.None);
 
             string str = await response.Content.ReadAsStringAsync();
             result = JsonConvert.DeserializeObject<LoginResultDTO>(str);

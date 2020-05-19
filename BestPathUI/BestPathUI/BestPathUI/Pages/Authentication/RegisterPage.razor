@@ -19,6 +19,14 @@
                 <RadzenTextBox @bind-Value="RequestDTO.ConfirmPassword"></RadzenTextBox>
 
                 <ValidationSummary />
+                @if (FailedRegister)
+                {
+                    foreach (var message in FailedRegisterMessages)
+                    {
+                        <br />
+                        <label class="mt-10 red-text">@message</label>
+                    }
+                }
                 <hr />
                 <RadzenButton ButtonType="Radzen.ButtonType.Submit" Text="Register"
                               ButtonStyle="Radzen.ButtonStyle.Primary" class="btn-block m2-2" />

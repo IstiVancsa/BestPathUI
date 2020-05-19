@@ -16,6 +16,9 @@ namespace BestPathUI.Pages.Authentication
         public NavigationManager NavigationManager { get; set; }
         public RegisterRequestDTO RequestDTO { get; set; }
         public bool Confirmvisible { get; set; }
+
+        public bool FailedRegister { get; set; } = false;
+        public List<string> FailedRegisterMessages { get; set; }
         public RegisterBase()
         {
             this.RequestDTO = new RegisterRequestDTO();
@@ -25,6 +28,11 @@ namespace BestPathUI.Pages.Authentication
             var result = await AuthenticationDataService.Register(RequestDTO);
             if(result.Successful)
                 NavigationManager.NavigateTo("/Login");
+            else
+            {
+                FailedRegister = true;
+                FailedRegisterMessages = result.Errors.ToList();
+            }
         }
     }
 }
