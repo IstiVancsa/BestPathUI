@@ -8,11 +8,6 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
-        @*<li class="nav-item px-3">
-                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                    <span class="oi oi-home" aria-hidden="true"></span> Home
-                </NavLink>
-            </li>*@
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="map">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Map
@@ -26,28 +21,9 @@
 
 @code {
     bool collapseNavMenu = true;
-    string AuthenticationButtonText = "Login";
-    bool AuthenticationTextSet = false;
+    string AuthenticationButtonText = "Log out";
 
     string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (!AuthenticationTextSet)
-        {
-            string localToken = await JSRuntime.InvokeAsync<string>("stateManager.load", "Token");
-            if (localToken != null)
-            {
-                AuthenticationButtonText = "Log out";
-            }
-            else
-            {
-                AuthenticationButtonText = "Login";
-            }
-            StateHasChanged();
-            AuthenticationTextSet = true;
-        }
-    }
 
     void ToggleNavMenu()
     {

@@ -21,9 +21,11 @@ namespace BestPathUI.Pages.MapPage
         public ICitiesDataService CitiesDataService { get; set; }
         //[Inject]
         //public ISessionStorageDataService SessionStorage { get; set; }
+        [Inject]
+        public ILocalStorageManagerService LocalStorageManagerService { get; set; }
         public IList<City> Cities { get; set; }
         protected AddCityDialog AddCityDialog { get; set; }
-        public Models.Models.User User { get; set; } = new Models.Models.User { Id = new Guid("42001e55-c6ec-4b56-8008-0d5930895867") };
+        public Models.Models.User User { get; set; } = new Models.Models.User();
         public IList<GoogleTextSearchDTO> RestaurantSearches { get; set; } = new List<GoogleTextSearchDTO>();
         public IList<GoogleTextSearchDTO> MuseumSearches { get; set; } = new List<GoogleTextSearchDTO>();
         [Inject]
@@ -42,7 +44,7 @@ namespace BestPathUI.Pages.MapPage
                 await JSRuntime.InvokeVoidAsync("createMap");
                 await JSRuntime.InvokeVoidAsync("initializeMap");
             }
-            var Token = await JSRuntime.InvokeAsync<string>("stateManager.load", "Token");
+            var Token = await this.LocalStorageManagerService.GetPermanentItemAsync("Token");
             if(Token == null)
                 NavigationManager.NavigateTo("/Login");
         }
@@ -66,14 +68,14 @@ namespace BestPathUI.Pages.MapPage
         {
             this.Cities.Clear();
             await JSRuntime.InvokeVoidAsync("removeDirections");
-            await JSRuntime.InvokeVoidAsync("stateManager.remove", "Cities");
+            await LocalStorageManagerService.DeletePermanentItemAsync("Cities");
             StateHasChanged();
         }
 
         protected async void SaveRoute()
         {
             await CitiesDataService.SavePathAsync(Cities);
-            await JSRuntime.InvokeVoidAsync("stateManager.remove", "Cities");
+            await LocalStorageManagerService.DeletePermanentItemAsync("Cities");
         }
 
         protected async void GetLastRoute()
@@ -85,9 +87,12 @@ namespace BestPathUI.Pages.MapPage
 
         protected async void GetUnsavedRoute()
         {
-            var serializedCities = await JSRuntime.InvokeAsync<string>("stateManager.load", "Cities");
-            this.Cities = JsonConvert.DeserializeObject<List<City>>(serializedCities);
-            ShowRoute();
+            var serializedCities = await LocalStorageManagerService.GetPermanentItemAsync("Cities");
+            if (serializedCities != null)
+            {
+                this.Cities = JsonConvert.DeserializeObject<List<City>>(serializedCities);
+                ShowRoute();
+            }
         }
 
         protected async void RestaurantSelected(GoogleTextSearchDTO restaurant)
@@ -97,8 +102,8 @@ namespace BestPathUI.Pages.MapPage
             if (this.MuseumSearches.Count == 0 && this.RestaurantSearches.Count == 0)
             {
                 var serializedCities = JsonConvert.SerializeObject(this.Cities);
-                await JSRuntime.InvokeVoidAsync("stateManager.remove", "Cities");
-                await JSRuntime.InvokeVoidAsync("stateManager.save", "Cities", serializedCities);
+                await LocalStorageManagerService.DeletePermanentItemAsync("Cities");
+                await LocalStorageManagerService.SavePermanentItemAsync("Cities", serializedCities);
             }
             await JSRuntime.InvokeVoidAsync("hideLocation");
             StateHasChanged();
@@ -112,8 +117,8 @@ namespace BestPathUI.Pages.MapPage
             if(this.MuseumSearches.Count == 0 && this.RestaurantSearches.Count == 0)
             {
                 var serializedCities = JsonConvert.SerializeObject(this.Cities);
-                await JSRuntime.InvokeVoidAsync("stateManager.remove", "Cities");
-                await JSRuntime.InvokeVoidAsync("stateManager.save", "Cities", serializedCities);
+                await LocalStorageManagerService.DeletePermanentItemAsync("Cities");
+                await LocalStorageManagerService.SavePermanentItemAsync("Cities", serializedCities);
             }
             await JSRuntime.InvokeVoidAsync("hideLocation");
             StateHasChanged();
@@ -134,11 +139,12 @@ namespace BestPathUI.Pages.MapPage
             this.RestaurantSearches = map_AddCity.RestaurantSearches;
             this.MuseumSearches = map_AddCity.MuseumSearches;
             this.Cities.Add(map_AddCity.City);
+            this.Cities[this.Cities.Count - 1].UserId = await LocalStorageManagerService.GetPermanentItemAsync("UserId");
             if (this.MuseumSearches.Count == 0 && this.RestaurantSearches.Count == 0)
             {
                 var serializedCities = JsonConvert.SerializeObject(this.Cities);
-                await JSRuntime.InvokeVoidAsync("stateManager.remove", "Cities");
-                await JSRuntime.InvokeVoidAsync("stateManager.save", "Cities", serializedCities);
+                await LocalStorageManagerService.DeletePermanentItemAsync("Cities");
+                await LocalStorageManagerService.SavePermanentItemAsync("Cities", serializedCities);
             }
             //we have to set the user id of map_addCity.CIty
             StateHasChanged();

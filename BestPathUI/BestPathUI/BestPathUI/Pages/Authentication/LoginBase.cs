@@ -19,6 +19,8 @@ namespace BestPathUI.Pages.Authentication
         [Inject]
         public IAuthenticationDataService AuthenticationDataService { get; set; }
         [Inject]
+        public ILocalStorageManagerService LocalStorageManagerService { get; set; }
+        [Inject]
         public NavigationManager NavigationManager { get; set; }
         public bool FailedLogin { get; set; } = false;
         public string FailedLoginMessage { get; set; }
@@ -30,7 +32,7 @@ namespace BestPathUI.Pages.Authentication
         }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            await JSRuntime.InvokeAsync<string>("stateManager.remove", "Token");
+            await LocalStorageManagerService.DeletePermanentItemAsync("Token");
         }
         public async Task LoginUser()
         {
@@ -38,7 +40,8 @@ namespace BestPathUI.Pages.Authentication
             if (result.Successful)
             {
                 //await SessionStorage.SetItemAsync("Token", result.Token);
-                await JSRuntime.InvokeVoidAsync("stateManager.save", "Token", result.Token);
+                await LocalStorageManagerService.SavePermanentItemAsync("Token", result.Token);
+                await LocalStorageManagerService.SavePermanentItemAsync("UserId", result.UserId);
                 NavigationManager.NavigateTo("/Map");
             }
             else

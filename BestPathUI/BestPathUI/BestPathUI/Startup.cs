@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using Services;
 using Interfaces;
+using Bussiness;
 
 namespace BestPathUI
 {
@@ -40,6 +41,7 @@ namespace BestPathUI
             {
                 client.BaseAddress = new Uri(Configuration["APPPaths:LocalHost"]);
             });
+            services.AddScoped<ILocalStorageManagerService, LocalStorageManagerService>();
             //services.AddBlazoredSessionStorage();
         }
 

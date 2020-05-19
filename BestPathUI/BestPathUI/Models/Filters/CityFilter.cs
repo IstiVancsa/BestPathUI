@@ -6,6 +6,6 @@ namespace Models.Filters
 {
     public class CityFilter : BaseFilterModel
     {
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

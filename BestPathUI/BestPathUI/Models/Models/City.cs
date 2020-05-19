@@ -23,7 +23,7 @@ namespace Models.Models
         public LocationDTO Location { get; set; }
         public GoogleTextSearchDTO SelectedRestaurant { get; set; }
         public GoogleTextSearchDTO SelectedMuseum { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         public new CityDTO GetDTO()
         {
@@ -56,7 +56,7 @@ namespace Models.Models
             Location = new LocationDTO();
             SelectedMuseum = new GoogleTextSearchDTO();
             SelectedRestaurant = new GoogleTextSearchDTO();
-            UserId = new Guid("42001e55-c6ec-4b56-8008-0d5930895867");
+            UserId = "";
         }
     }
 }
