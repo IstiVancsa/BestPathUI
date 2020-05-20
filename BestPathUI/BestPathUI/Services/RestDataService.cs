@@ -39,6 +39,7 @@ namespace Services
         }
         private async Task GetToken()
         {
+            //TODO
             Token = await _jSRuntime.InvokeAsync<string>("stateManager.load", "Token");
         }
         public async Task<bool> AddItemAsync(TModel item)

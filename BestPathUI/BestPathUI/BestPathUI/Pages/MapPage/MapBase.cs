@@ -45,7 +45,7 @@ namespace BestPathUI.Pages.MapPage
                 await JSRuntime.InvokeVoidAsync("initializeMap");
             }
             var Token = await this.LocalStorageManagerService.GetPermanentItemAsync("Token");
-            if(Token == null)
+            if (Token == null)
                 NavigationManager.NavigateTo("/Login");
         }
 
@@ -60,7 +60,7 @@ namespace BestPathUI.Pages.MapPage
             var startPoint = GetStartPointGeoCoordinates();
             var endPoint = GetDestinationPointGeoCoordinates();
             var intermediatePoints = GetIntermediatePointsGeoCoordinates();
-            if(startPoint != null && endPoint != null)
+            if (startPoint != null && endPoint != null)
                 await JSRuntime.InvokeVoidAsync("showRoute", startPoint, endPoint, intermediatePoints);
         }
 
@@ -81,7 +81,9 @@ namespace BestPathUI.Pages.MapPage
         protected async void GetLastRoute()
         {
             CityFilter cityFilter = new CityFilter { UserId = User.Id };
-            Cities = (await CitiesDataService.GetLastRoute(cityFilter.GetFilter())).ToList();
+            var result = (await CitiesDataService.GetLastRoute(cityFilter.GetFilter()));
+            Cities = result.Cities;
+            await LocalStorageManagerService.UpdatePermanentItemAsync("Token", result.Token);
             ShowRoute();
         }
 
@@ -114,7 +116,7 @@ namespace BestPathUI.Pages.MapPage
             this.Cities[Cities.Count() - 1].SelectedMuseum = museum;
             this.MuseumSearches.Clear();
             //Check if user selected all from the tables
-            if(this.MuseumSearches.Count == 0 && this.RestaurantSearches.Count == 0)
+            if (this.MuseumSearches.Count == 0 && this.RestaurantSearches.Count == 0)
             {
                 var serializedCities = JsonConvert.SerializeObject(this.Cities);
                 await LocalStorageManagerService.DeletePermanentItemAsync("Cities");
