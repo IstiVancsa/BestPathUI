@@ -34,7 +34,7 @@
 
                 <button @onclick="@NewRoute" class="btn btn-dark table-btn quick-add-btn buton canvas-btn">New Route</button>
 
-                <button @onclick="@GetLastRoute" class="btn btn-dark table-btn quick-add-btn buton canvas-btn">Get my last route</button>
+                <button @onclick="@GetRoutes" class="btn btn-dark table-btn quick-add-btn buton canvas-btn">Get my routes</button>
 
                 <button @onclick="@GetUnsavedRoute" class="btn btn-dark table-btn quick-add-btn buton canvas-btn">Get my unsaved route</button>
             </div>
@@ -125,6 +125,13 @@
                     }
                 </tbody>
             </table>
+        }
+
+        @if (ShowAlert)
+        {
+            <div class="alert alert-success" role="alert">
+                @SuccessAlertMessage
+            </div>
         }
     </div>
 </body>

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace BestPathUI.Pages.MapPage
 {
@@ -31,10 +32,23 @@ namespace BestPathUI.Pages.MapPage
         [Inject]
         public NavigationManager NavigationManager { get; set; }
         public GetLastRouteResult LastRoutes { get; set; }
+        public bool ShowAlert { get; set; }
+        public string SuccessAlertMessage { get; set; }
+        public Timer SuccessAlertTimer { get; set; }
         protected override async Task OnInitializedAsync()
         {
             Cities = new List<City>();
             LastRoutes = new GetLastRouteResult();
+            SuccessAlertTimer = new Timer(3000);
+            SuccessAlertTimer.Elapsed += new ElapsedEventHandler((Object source, ElapsedEventArgs e) =>
+            {
+                InvokeAsync(() =>
+                {
+                    this.ShowAlert = false;
+                    this.SuccessAlertTimer.Enabled = false;
+                    StateHasChanged();
+                });
+            });
         }
         private bool _mapInitialized { get; set; } = false;
 
@@ -78,14 +92,16 @@ namespace BestPathUI.Pages.MapPage
         {
             await CitiesDataService.SavePathAsync(Cities);
             await LocalStorageManagerService.DeletePermanentItemAsync("Cities");
+            ShowSuccessAlert("Route successfully saved!");
         }
 
-        protected async void GetLastRoute()
+        protected async void GetRoutes()
         {
             CityFilter cityFilter = new CityFilter { UserId = User.Id };
-            var result = (await CitiesDataService.GetLastRoute(cityFilter.GetFilter()));
+            var result = (await CitiesDataService.GetRoutes(cityFilter.GetFilter()));
             LastRoutes = result;
             await LocalStorageManagerService.UpdatePermanentItemAsync("Token", result.Token);
+            StateHasChanged();
         }
 
         protected async void GetUnsavedRoute()
@@ -96,6 +112,15 @@ namespace BestPathUI.Pages.MapPage
                 this.Cities = JsonConvert.DeserializeObject<List<City>>(serializedCities);
                 ShowRoute();
             }
+            ShowSuccessAlert("The route was successfully restored!");
+        }
+
+        private void ShowSuccessAlert(string message)
+        {
+            ShowAlert = true;
+            SuccessAlertMessage = message;
+            StateHasChanged();
+            SuccessAlertTimer.Enabled = true;
         }
 
         protected async void RestaurantSelected(GoogleTextSearchDTO restaurant)
@@ -132,6 +157,7 @@ namespace BestPathUI.Pages.MapPage
             this.Cities = selectedRoute.Item2;
             this.LastRoutes.Cities.Clear();
             this.ShowRoute();
+            this.ShowSuccessAlert("Last route imported successfully!");
         }
 
         protected async void ShowLocation(GoogleTextSearchDTO place)
@@ -156,8 +182,7 @@ namespace BestPathUI.Pages.MapPage
                 await LocalStorageManagerService.DeletePermanentItemAsync("Cities");
                 await LocalStorageManagerService.SavePermanentItemAsync("Cities", serializedCities);
             }
-            //we have to set the user id of map_addCity.CIty
-            StateHasChanged();
+            ShowSuccessAlert("The city was successfully added to the route!");
         }
 
         public LocationDTO GetStartPointGeoCoordinates()

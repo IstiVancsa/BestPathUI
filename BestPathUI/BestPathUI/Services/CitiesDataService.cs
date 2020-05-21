@@ -35,9 +35,9 @@ namespace Services
             };
         }
 
-        public async Task<GetLastRouteResult> GetLastRoute(string filters)
+        public async Task<GetLastRouteResult> GetRoutes(string filters)
         {
-            return (await this.ReturnGetHttp<GetLastRouteResult>(this.UrlApi + "GetLastRoute/" + filters));
+            return (await this.ReturnGetHttp<GetLastRouteResult>(this.UrlApi + "GetRoutes/" + filters));
         }
 
         public async Task<bool> SavePathAsync(IEnumerable<City> cities)

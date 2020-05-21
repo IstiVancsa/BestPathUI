@@ -10,6 +10,6 @@ namespace Interfaces
     public interface ICitiesDataService : IRestDataService<City, CityDTO>
     {
         Task<bool> SavePathAsync(IEnumerable<City> cities);
-        Task<GetLastRouteResult> GetLastRoute(string filters);
+        Task<GetLastRouteResult> GetRoutes(string filters);
     }
 }
