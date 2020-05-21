@@ -30,9 +30,11 @@ namespace BestPathUI.Pages.MapPage
         public IList<GoogleTextSearchDTO> MuseumSearches { get; set; } = new List<GoogleTextSearchDTO>();
         [Inject]
         public NavigationManager NavigationManager { get; set; }
+        public GetLastRouteResult LastRoutes { get; set; }
         protected override async Task OnInitializedAsync()
         {
             Cities = new List<City>();
+            LastRoutes = new GetLastRouteResult();
         }
         private bool _mapInitialized { get; set; } = false;
 
@@ -82,9 +84,8 @@ namespace BestPathUI.Pages.MapPage
         {
             CityFilter cityFilter = new CityFilter { UserId = User.Id };
             var result = (await CitiesDataService.GetLastRoute(cityFilter.GetFilter()));
-            Cities = result.Cities;
+            LastRoutes = result;
             await LocalStorageManagerService.UpdatePermanentItemAsync("Token", result.Token);
-            ShowRoute();
         }
 
         protected async void GetUnsavedRoute()
@@ -124,6 +125,13 @@ namespace BestPathUI.Pages.MapPage
             }
             await JSRuntime.InvokeVoidAsync("hideLocation");
             StateHasChanged();
+        }
+
+        protected async void RouteSelected(Tuple<DateTime, List<City>> selectedRoute)
+        {
+            this.Cities = selectedRoute.Item2;
+            this.LastRoutes.Cities.Clear();
+            this.ShowRoute();
         }
 
         protected async void ShowLocation(GoogleTextSearchDTO place)

@@ -40,6 +40,28 @@
             </div>
         </div>
 
+        @if (this.LastRoutes.Cities.Count > 0)
+        {
+            <h3 class="text-center mt-20">Here are all your saved routes. Plase select one of them</h3>
+            <table class="table mt-20 mb-20">
+                <thead>
+                    <tr>
+                        <th>Date Saved</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var route in LastRoutes.Cities)
+                    {
+                        <tr>
+                            <td>@route.Item1</td>
+                            <td><button @onclick="@(x => RouteSelected(route))" class="btn btn-dark table-btn quick-add-btn">Select route</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
 
         @if (this.RestaurantSearches.Count > 0)
         {

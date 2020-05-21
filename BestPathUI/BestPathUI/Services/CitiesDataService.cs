@@ -37,25 +37,7 @@ namespace Services
 
         public async Task<GetLastRouteResult> GetLastRoute(string filters)
         {
-            //return (await this.ReturnGetHttp<List<CityDTO>>(this.UrlApi + "GetLastRoute/" + filters)).Select(GetByFilterSelector).ToList();
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(this.UrlApi + "GetLastRoute/" + filters);
-            request.PreAuthenticate = true;
-            request.Headers.Add("Authorization", "Bearer " + Convert.ToBase64String(Encoding.Default.GetBytes(this.Token)));
-            request.Method = "GET";
-            request.ContentType = "application/json";
-            var response = (await request.GetResponseAsync()) as HttpWebResponse;
-            WebHeaderCollection header = response.Headers;
-
-            string responseText = "";
-            var encoding = ASCIIEncoding.ASCII;
-            using (var reader = new System.IO.StreamReader(response.GetResponseStream(), encoding))
-            {
-                responseText = reader.ReadToEnd();
-            }
-            response.Close();
-            var result = JsonConvert.DeserializeObject<GetLastRouteResult>(responseText);
-            return result;
+            return (await this.ReturnGetHttp<GetLastRouteResult>(this.UrlApi + "GetLastRoute/" + filters));
         }
 
         public async Task<bool> SavePathAsync(IEnumerable<City> cities)
