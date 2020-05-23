@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using Bussiness;
+using Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.JSInterop;
 using Models.DTO;
@@ -9,7 +10,7 @@ namespace Services
 {
     public class ReviewDataService : RestDataService<Review, ReviewDTO>, IReviewDataService
     {
-        public ReviewDataService(HttpClient httpClient, IConfiguration configuration, IJSRuntime JSRuntime) : base(httpClient, configuration, JSRuntime, "Review")
+        public ReviewDataService(HttpClient httpClient, IConfiguration configuration, IJSRuntime JSRuntime, ILocalStorageManagerService localStorageManagerService) : base(httpClient, configuration, JSRuntime, localStorageManagerService, "Review")
         {
             GetByFilterSelector = x => new Review
             {

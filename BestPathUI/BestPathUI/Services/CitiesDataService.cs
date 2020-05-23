@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using Bussiness;
+using Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.JSInterop;
 using Models.DTO;
@@ -6,6 +7,7 @@ using Models.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -17,7 +19,7 @@ namespace Services
 {
     public class CitiesDataService : RestDataService<City, CityDTO>, ICitiesDataService
     {
-        public CitiesDataService(HttpClient httpClient, IConfiguration configuration, IJSRuntime JSRuntime) : base(httpClient, configuration, JSRuntime, "cities")
+        public CitiesDataService(HttpClient httpClient, IConfiguration configuration, IJSRuntime JSRuntime, ILocalStorageManagerService localStorageManagerService) : base(httpClient, configuration, JSRuntime, localStorageManagerService, "cities")
         {
             GetByFilterSelector = x => new City
             {
@@ -25,7 +27,6 @@ namespace Services
                 CityName = x.CityName,
                 DestinationPoint = x.DestinationPoint,
                 MuseumType = x.MuseumType,
-                NeedsHotel = x.NeedsHotel,
                 NeedsMuseum = x.NeedsMuseum,
                 NeedsRestaurant = x.NeedsRestaurant,
                 RestaurantType = x.RestaurantType,
@@ -48,15 +49,23 @@ namespace Services
                 client.BaseAddress = new Uri(this.UrlApi);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.Token);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await this.GetToken());
 
                 IList<CityDTO> citiesDTO = new List<CityDTO>();
                 foreach (var city in cities)
+                {
                     citiesDTO.Add(city.GetDTO());
+                }
 
                 var content = new StringContent(JsonConvert.SerializeObject(citiesDTO), Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PostAsync(this.UrlApi + "AddCities", content);
+                HttpResponseMessage response = await client.PostAsync(this.UrlApi + "SaveCities", content);
+
+                var tokenObj = await response.Content.ReadAsStringAsync();
+
+                var token = JsonConvert.DeserializeObject<BaseTokenizedDTO>(tokenObj);
+
+                await LocalStorageManagerService.UpdatePermanentItemAsync("Token", token.Token);
 
                 result = response.IsSuccessStatusCode;
             }

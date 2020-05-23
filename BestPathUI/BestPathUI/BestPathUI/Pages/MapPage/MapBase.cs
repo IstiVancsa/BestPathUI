@@ -26,7 +26,6 @@ namespace BestPathUI.Pages.MapPage
         public ILocalStorageManagerService LocalStorageManagerService { get; set; }
         public IList<City> Cities { get; set; }
         protected AddCityDialog AddCityDialog { get; set; }
-        public Models.Models.User User { get; set; } = new Models.Models.User();
         public IList<GoogleTextSearchDTO> RestaurantSearches { get; set; } = new List<GoogleTextSearchDTO>();
         public IList<GoogleTextSearchDTO> MuseumSearches { get; set; } = new List<GoogleTextSearchDTO>();
         [Inject]
@@ -70,7 +69,7 @@ namespace BestPathUI.Pages.MapPage
             AddCityDialog.Show();
         }
 
-        protected async void ShowRoute()
+        protected async Task ShowRoute()
         {
             await JSRuntime.InvokeVoidAsync("removeDirections");
             var startPoint = GetStartPointGeoCoordinates();
@@ -80,7 +79,7 @@ namespace BestPathUI.Pages.MapPage
                 await JSRuntime.InvokeVoidAsync("showRoute", startPoint, endPoint, intermediatePoints);
         }
 
-        protected async void NewRoute()
+        protected async Task NewRoute()
         {
             this.Cities.Clear();
             await JSRuntime.InvokeVoidAsync("removeDirections");
@@ -88,29 +87,30 @@ namespace BestPathUI.Pages.MapPage
             StateHasChanged();
         }
 
-        protected async void SaveRoute()
+        protected async Task SaveRoute()
         {
             await CitiesDataService.SavePathAsync(Cities);
             await LocalStorageManagerService.DeletePermanentItemAsync("Cities");
             ShowSuccessAlert("Route successfully saved!");
         }
 
-        protected async void GetRoutes()
+        protected async Task GetRoutes()
         {
-            CityFilter cityFilter = new CityFilter { UserId = User.Id };
+            var userId = await LocalStorageManagerService.GetPermanentItemAsync("UserId");
+            CityFilter cityFilter = new CityFilter { UserId = userId };
             var result = (await CitiesDataService.GetRoutes(cityFilter.GetFilter()));
-            LastRoutes = result;
-            await LocalStorageManagerService.UpdatePermanentItemAsync("Token", result.Token);
+            if (result != null)
+                LastRoutes = result;
             StateHasChanged();
         }
 
-        protected async void GetUnsavedRoute()
+        protected async Task GetUnsavedRoute()
         {
             var serializedCities = await LocalStorageManagerService.GetPermanentItemAsync("Cities");
             if (serializedCities != null)
             {
                 this.Cities = JsonConvert.DeserializeObject<List<City>>(serializedCities);
-                ShowRoute();
+                await ShowRoute();
             }
             ShowSuccessAlert("The route was successfully restored!");
         }
@@ -123,7 +123,7 @@ namespace BestPathUI.Pages.MapPage
             SuccessAlertTimer.Enabled = true;
         }
 
-        protected async void RestaurantSelected(GoogleTextSearchDTO restaurant)
+        protected async Task RestaurantSelected(GoogleTextSearchDTO restaurant)
         {
             this.Cities[Cities.Count() - 1].SelectedRestaurant = restaurant;
             this.RestaurantSearches.Clear();
@@ -137,7 +137,7 @@ namespace BestPathUI.Pages.MapPage
             StateHasChanged();
         }
 
-        protected async void MuseumSelected(GoogleTextSearchDTO museum)
+        protected async Task MuseumSelected(GoogleTextSearchDTO museum)
         {
             this.Cities[Cities.Count() - 1].SelectedMuseum = museum;
             this.MuseumSearches.Clear();
@@ -152,25 +152,25 @@ namespace BestPathUI.Pages.MapPage
             StateHasChanged();
         }
 
-        protected async void RouteSelected(Tuple<DateTime, List<City>> selectedRoute)
+        protected async Task RouteSelected(Tuple<DateTime, List<City>> selectedRoute)
         {
             this.Cities = selectedRoute.Item2;
             this.LastRoutes.Cities.Clear();
-            this.ShowRoute();
+            await this.ShowRoute();
             this.ShowSuccessAlert("Last route imported successfully!");
         }
 
-        protected async void ShowLocation(GoogleTextSearchDTO place)
+        protected async Task ShowLocation(GoogleTextSearchDTO place)
         {
             await JSRuntime.InvokeVoidAsync("showLocation", new LocationDTO { lat = place.geometry.location.lat, lng = place.geometry.location.lng });
         }
 
-        protected async void HideLocation(GoogleTextSearchDTO place)
+        protected async Task HideLocation(GoogleTextSearchDTO place)
         {
             await JSRuntime.InvokeVoidAsync("hideLocation");
         }
 
-        public async void AddCityDialog_OnDialogClose(Map_AddCity map_AddCity)
+        public async Task AddCityDialog_OnDialogClose(Map_AddCity map_AddCity)
         {
             this.RestaurantSearches = map_AddCity.RestaurantSearches;
             this.MuseumSearches = map_AddCity.MuseumSearches;

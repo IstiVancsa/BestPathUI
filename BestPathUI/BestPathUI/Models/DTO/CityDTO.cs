@@ -9,7 +9,6 @@ namespace Models.DTO
         public string CityName { get; set; }
         public bool DestinationPoint { get; set; }
         public bool StartPoint { get; set; }
-        public bool NeedsHotel { get; set; }
         public bool NeedsRestaurant { get; set; }
         public string RestaurantType { get; set; }
         public bool NeedsMuseum { get; set; }

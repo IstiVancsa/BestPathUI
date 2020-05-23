@@ -82,7 +82,6 @@ namespace BestPathUI.Pages.Components
                 CityName = "",
                 DestinationPoint = false,
                 MuseumType = "",
-                NeedsHotel = false,
                 NeedsMuseum = false,
                 NeedsRestaurant = false,
                 RestaurantType = "",
@@ -105,10 +104,6 @@ namespace BestPathUI.Pages.Components
             this.City.Location = Location;
 
             Map_AddCity map_AddCity = new Map_AddCity();
-            if (this.City.NeedsHotel)
-            {
-                Console.WriteLine("show hotels in a table and a marker on the map");//TODO do exactly the same like at museums or restaurants
-            }
             if (this.City.NeedsMuseum)
             {
                 map_AddCity.MuseumSearches = (await GoogleDataService.TextSearch(MuseumType + "+Museum", this.City.Location)).results;

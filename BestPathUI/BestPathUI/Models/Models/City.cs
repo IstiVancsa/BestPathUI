@@ -15,7 +15,6 @@ namespace Models.Models
 
         [Unlike("DestinationPoint")]
         public bool StartPoint { get; set; }
-        public bool NeedsHotel { get; set; }
         public bool NeedsRestaurant { get; set; }
         public string RestaurantType { get; set; }
         public bool NeedsMuseum { get; set; }
@@ -33,7 +32,6 @@ namespace Models.Models
                 CityName = this.CityName,
                 DestinationPoint = this.DestinationPoint,
                 MuseumType = this.MuseumType,
-                NeedsHotel = this.NeedsHotel,
                 NeedsMuseum = this.NeedsMuseum,
                 NeedsRestaurant = this.NeedsRestaurant,
                 RestaurantType = this.RestaurantType,
@@ -48,7 +46,6 @@ namespace Models.Models
             CityName = "";
             DestinationPoint = false;
             MuseumType = "";
-            NeedsHotel = false;
             NeedsMuseum = false;
             NeedsRestaurant = false;
             RestaurantType = "";

@@ -43,12 +43,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="needsHotel" class="label-checkbox">Needs Hotel: </label>
-                            <InputCheckbox id="needsHotel" class="form-control checkbox" @bind-Value="@City.NeedsHotel"></InputCheckbox>
-                            <ValidationMessage For="@(() => City.NeedsHotel)" />
-                        </div>
-
-                        <div class="form-group">
                             <label for="needsMuseum" class="label-checkbox">Needs Museum: </label>
                             <InputCheckbox id="needsMuseum" class="form-control checkbox" @bind-Value="@City.NeedsMuseum" onclick="enableTextbox('needsMuseum','museum_search')"></InputCheckbox>
                             <ValidationMessage For="@(() => City.NeedsMuseum)" />

@@ -15,7 +15,7 @@ namespace Models
                 var valore = prop.GetValue(this);
                 if (valore != null)
                 {
-                    if (valore is IEnumerable)
+                    if (valore is IList)
                     {
                         if (prop.Name.EndsWith("ListInt"))
                         {

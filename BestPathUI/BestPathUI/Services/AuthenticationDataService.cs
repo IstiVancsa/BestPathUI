@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using Bussiness;
+using Interfaces;
 using Microsoft.Extensions.Configuration;
 using Models.DTO.Authentication;
 using Newtonsoft.Json;
@@ -16,10 +17,13 @@ namespace Services
     {
         public string UrlApi = "";
         public IConfiguration Configuration { get; }
+        public ILocalStorageManagerService LocalStorageManagerService { get; }
+
         private HttpClient _httpClient;
-        public AuthenticationDataService(HttpClient httpClient, IConfiguration configuration)
+        public AuthenticationDataService(HttpClient httpClient, IConfiguration configuration, ILocalStorageManagerService localStorageManagerService)
         {
             Configuration = configuration;
+            LocalStorageManagerService = localStorageManagerService;
             this.UrlApi = Configuration["APPPaths:BestPathAPI"] + "Accounts/";
 
             this._httpClient = httpClient;
@@ -54,6 +58,8 @@ namespace Services
 
             string str = await response.Content.ReadAsStringAsync();
             result = JsonConvert.DeserializeObject<LoginResultDTO>(str);
+            await LocalStorageManagerService.SavePermanentItemAsync("Token", result.Token);
+            await LocalStorageManagerService.SavePermanentItemAsync("UserId", result.UserId);
             return result;
         }
     }

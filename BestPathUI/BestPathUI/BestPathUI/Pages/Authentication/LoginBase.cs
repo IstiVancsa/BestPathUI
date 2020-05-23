@@ -40,8 +40,6 @@ namespace BestPathUI.Pages.Authentication
             if (result.Successful)
             {
                 //await SessionStorage.SetItemAsync("Token", result.Token);
-                await LocalStorageManagerService.SavePermanentItemAsync("Token", result.Token);
-                await LocalStorageManagerService.SavePermanentItemAsync("UserId", result.UserId);
                 NavigationManager.NavigateTo("/Map");
             }
             else

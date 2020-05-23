@@ -13,6 +13,9 @@ using Models.Interfaces;
 using System.Linq.Expressions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.JSInterop;
+using Bussiness;
+using System.IO;
+using Models.DTO;
 
 namespace Services
 {
@@ -25,22 +28,22 @@ namespace Services
         private IJSRuntime _jSRuntime;
         public IConfiguration Configuration { get; }
         public string UrlApi = "";
-        public string Token { get; set; }
-        public RestDataService(HttpClient httpClient, IConfiguration configuration, IJSRuntime JSRuntime, string partialUrl = null)
+        public ILocalStorageManagerService LocalStorageManagerService { get; set; }
+        public RestDataService(HttpClient httpClient, IConfiguration configuration, IJSRuntime JSRuntime, ILocalStorageManagerService localStorageManagerService, string partialUrl = null)
         {
             if (string.IsNullOrEmpty(partialUrl))
                 partialUrl = typeof(TModel).Name.Replace("Model", "");
 
+            this.LocalStorageManagerService = localStorageManagerService;
             Configuration = configuration;
             this.UrlApi = Configuration["APPPaths:BestPathAPI"] + partialUrl + "/";
             this._httpClient = httpClient;
             _jSRuntime = JSRuntime;
             GetToken();
         }
-        private async Task GetToken()
+        public async Task<string> GetToken()
         {
-            //TODO
-            Token = await _jSRuntime.InvokeAsync<string>("stateManager.load", "Token");
+            return await LocalStorageManagerService.GetPermanentItemAsync("Token");
         }
         public async Task<bool> AddItemAsync(TModel item)
         {
@@ -50,11 +53,15 @@ namespace Services
                 client.BaseAddress = new Uri(this.UrlApi);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.Token);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await this.GetToken());
 
                 var content = new StringContent(JsonConvert.SerializeObject(item.GetDTO()), Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = await client.PostAsync(this.UrlApi, content);
+
+                var token = await response.Content.ReadAsStringAsync();
+
+                await LocalStorageManagerService.UpdatePermanentItemAsync("Token", token);
 
                 result = response.IsSuccessStatusCode;
             }
@@ -66,10 +73,14 @@ namespace Services
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(this.UrlApi + id);
             request.PreAuthenticate = true;
-            request.Headers.Add("Authorization", "Bearer " + this.Token);
+            request.Headers.Add("Authorization", "Bearer " + await this.GetToken());
             request.Method = "DELETE";
             request.ContentType = "application/json";
             var response = (await request.GetResponseAsync()) as HttpWebResponse;
+            var contentStream = response.GetResponseStream();
+            StreamReader readStream = new StreamReader(contentStream, Encoding.UTF8);
+            var token = readStream.ReadToEnd();
+            await LocalStorageManagerService.UpdatePermanentItemAsync("Token", token);
             response.Close();
             return response.StatusCode == HttpStatusCode.OK;
         }
@@ -102,8 +113,13 @@ namespace Services
 
             var serializedItem = JsonConvert.SerializeObject(item.GetDTO());
             var content = new StringContent(serializedItem, Encoding.UTF8, "application/json");
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.Token);
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await this.GetToken());
             var response = await this._httpClient.PutAsync(uri, content);
+            if (response.IsSuccessStatusCode)
+            {
+                var token = await response.Content.ReadAsStringAsync();
+                await LocalStorageManagerService.UpdatePermanentItemAsync("Token", token);
+            }
             return response.IsSuccessStatusCode;
         }
 
@@ -114,12 +130,17 @@ namespace Services
             var uri = new Uri(string.Format(url));
             try
             {
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.Token);
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await this.GetToken());
                 var response = await this._httpClient.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     items = JsonConvert.DeserializeObject<TResult>(content);
+                    var token = items as BaseTokenizedDTO;
+                    if(token != null)
+                    {
+                        await LocalStorageManagerService.UpdatePermanentItemAsync("Token", token.Token);
+                    }
                 }
             }
             catch (Exception ex)
