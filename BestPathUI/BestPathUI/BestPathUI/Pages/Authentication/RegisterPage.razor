@@ -13,10 +13,10 @@
                 <RadzenTextBox @bind-Value="RequestDTO.Email"></RadzenTextBox>
 
                 <label class="mt-10">Password</label>
-                <RadzenTextBox @bind-Value="RequestDTO.Password"></RadzenTextBox>
+                <RadzenTextBox @bind-Value="RequestDTO.Password" Type="password"></RadzenTextBox>
 
                 <label class="mt-10">Confirm Password</label>
-                <RadzenTextBox @bind-Value="RequestDTO.ConfirmPassword"></RadzenTextBox>
+                <RadzenTextBox @bind-Value="RequestDTO.ConfirmPassword" Type="password"></RadzenTextBox>
 
                 <ValidationSummary />
                 @if (FailedRegister)

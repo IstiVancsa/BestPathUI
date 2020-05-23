@@ -13,7 +13,7 @@
                     <RadzenTextBox @bind-Value="LoginModel.Email"></RadzenTextBox>
 
                     <label class="mt-10">Password</label>
-                    <RadzenTextBox @bind-Value="LoginModel.Password"></RadzenTextBox>
+                    <RadzenTextBox @bind-Value="LoginModel.Password" Type="password"></RadzenTextBox>
 
                     <ValidationSummary />
                     @if (FailedLogin)
