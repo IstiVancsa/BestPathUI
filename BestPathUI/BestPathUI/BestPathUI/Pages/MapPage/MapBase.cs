@@ -31,9 +31,12 @@ namespace BestPathUI.Pages.MapPage
         [Inject]
         public NavigationManager NavigationManager { get; set; }
         public GetLastRouteResult LastRoutes { get; set; }
-        public bool ShowAlert { get; set; }
+        public bool ShowSuccessAlert_Prop { get; set; }
+        public bool ShowUnSuccessAlert_Prop { get; set; }
         public string SuccessAlertMessage { get; set; }
+        public string UnSuccessAlertMessage { get; set; }
         public Timer SuccessAlertTimer { get; set; }
+        public Timer UnSuccessAlertTimer { get; set; }
         protected override async Task OnInitializedAsync()
         {
             Cities = new List<City>();
@@ -43,8 +46,19 @@ namespace BestPathUI.Pages.MapPage
             {
                 InvokeAsync(() =>
                 {
-                    this.ShowAlert = false;
+                    this.ShowSuccessAlert_Prop = false;
                     this.SuccessAlertTimer.Enabled = false;
+                    StateHasChanged();
+                });
+            });
+
+            UnSuccessAlertTimer = new Timer(3000);
+            UnSuccessAlertTimer.Elapsed += new ElapsedEventHandler((Object source, ElapsedEventArgs e) =>
+            {
+                InvokeAsync(() =>
+                {
+                    this.ShowUnSuccessAlert_Prop = false;
+                    this.UnSuccessAlertTimer.Enabled = false;
                     StateHasChanged();
                 });
             });
@@ -84,14 +98,20 @@ namespace BestPathUI.Pages.MapPage
             this.Cities.Clear();
             await JSRuntime.InvokeVoidAsync("removeDirections");
             await LocalStorageManagerService.DeletePermanentItemAsync("Cities");
+            ShowSuccessAlert("Here we go! Now you can start all over again!");
             StateHasChanged();
         }
 
         protected async Task SaveRoute()
         {
-            await CitiesDataService.SavePathAsync(Cities);
-            await LocalStorageManagerService.DeletePermanentItemAsync("Cities");
-            ShowSuccessAlert("Route successfully saved!");
+            if (this.Cities.Count > 0)
+            {
+                await CitiesDataService.SavePathAsync(Cities);
+                await LocalStorageManagerService.DeletePermanentItemAsync("Cities");
+                ShowSuccessAlert("Route successfully saved!");
+            }
+            else
+                ShowUnSuccessAlert("There is no route to be saved!");
         }
 
         protected async Task GetRoutes()
@@ -101,6 +121,8 @@ namespace BestPathUI.Pages.MapPage
             var result = (await CitiesDataService.GetRoutes(cityFilter.GetFilter()));
             if (result != null)
                 LastRoutes = result;
+            else
+                ShowUnSuccessAlert("You have no routes saved in our DB!");
             StateHasChanged();
         }
 
@@ -111,16 +133,26 @@ namespace BestPathUI.Pages.MapPage
             {
                 this.Cities = JsonConvert.DeserializeObject<List<City>>(serializedCities);
                 await ShowRoute();
+                ShowSuccessAlert("The route was successfully restored!");
             }
-            ShowSuccessAlert("The route was successfully restored!");
+            else
+                ShowUnSuccessAlert("You have no route cached in your browser!");
         }
 
         private void ShowSuccessAlert(string message)
         {
-            ShowAlert = true;
+            ShowSuccessAlert_Prop = true;
             SuccessAlertMessage = message;
             StateHasChanged();
             SuccessAlertTimer.Enabled = true;
+        }
+
+        private void ShowUnSuccessAlert(string message)
+        {
+            ShowUnSuccessAlert_Prop = true;
+            UnSuccessAlertMessage = message;
+            StateHasChanged();
+            UnSuccessAlertTimer.Enabled = true;
         }
 
         protected async Task RestaurantSelected(GoogleTextSearchDTO restaurant)
@@ -134,6 +166,7 @@ namespace BestPathUI.Pages.MapPage
                 await LocalStorageManagerService.SavePermanentItemAsync("Cities", serializedCities);
             }
             await JSRuntime.InvokeVoidAsync("hideLocation");
+            ShowSuccessAlert("Restaurant selected");
             StateHasChanged();
         }
 
@@ -149,6 +182,7 @@ namespace BestPathUI.Pages.MapPage
                 await LocalStorageManagerService.SavePermanentItemAsync("Cities", serializedCities);
             }
             await JSRuntime.InvokeVoidAsync("hideLocation");
+            ShowSuccessAlert("Museum selected");
             StateHasChanged();
         }
 
@@ -157,7 +191,7 @@ namespace BestPathUI.Pages.MapPage
             this.Cities = selectedRoute.Item2;
             this.LastRoutes.Cities.Clear();
             await this.ShowRoute();
-            this.ShowSuccessAlert("Last route imported successfully!");
+            ShowSuccessAlert("Route selected");
         }
 
         protected async Task ShowLocation(GoogleTextSearchDTO place)
@@ -182,6 +216,10 @@ namespace BestPathUI.Pages.MapPage
                 await LocalStorageManagerService.DeletePermanentItemAsync("Cities");
                 await LocalStorageManagerService.SavePermanentItemAsync("Cities", serializedCities);
             }
+            if (this.MuseumSearches.Count == 0 && map_AddCity.City.NeedsMuseum)
+                ShowUnSuccessAlert("Sorry! We couldn't find any museums in your area");
+            if (this.RestaurantSearches.Count == 0 && map_AddCity.City.NeedsRestaurant)
+                ShowUnSuccessAlert("Sorry! We couldn't find any restaurants in your area");
             ShowSuccessAlert("The city was successfully added to the route!");
         }
 

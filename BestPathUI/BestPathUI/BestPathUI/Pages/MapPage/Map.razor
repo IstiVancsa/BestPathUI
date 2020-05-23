@@ -127,12 +127,20 @@
             </table>
         }
 
-        @if (ShowAlert)
+        @if (ShowSuccessAlert_Prop)
         {
             <div class="alert alert-success" role="alert">
                 @SuccessAlertMessage
             </div>
         }
+
+        @if (ShowUnSuccessAlert_Prop)
+        {
+            <div class="alert alert-danger" role="alert">
+                @UnSuccessAlertMessage
+            </div>
+        }
+
     </div>
 </body>
 </html>
