@@ -91,6 +91,11 @@ namespace BestPathUI.Pages.MapPage
             var intermediatePoints = GetIntermediatePointsGeoCoordinates();
             if (startPoint != null && endPoint != null)
                 await JSRuntime.InvokeVoidAsync("showRoute", startPoint, endPoint, intermediatePoints);
+            else
+                if (startPoint == null)
+                ShowUnSuccessAlert("You need to select a start point before showing the path");
+            else
+                ShowUnSuccessAlert("You need to select a destination point before showing the path");
         }
 
         protected async Task NewRoute()
