@@ -26,6 +26,7 @@ namespace BestPathUI.Pages.MapPage
         public ILocalStorageManagerService LocalStorageManagerService { get; set; }
         public IList<City> Cities { get; set; }
         protected AddCityDialog AddCityDialog { get; set; }
+        protected DeleteRouteDialog DeleteRouteDialog { get; set; }
         public IList<GoogleTextSearchDTO> RestaurantSearches { get; set; } = new List<GoogleTextSearchDTO>();
         public IList<GoogleTextSearchDTO> MuseumSearches { get; set; } = new List<GoogleTextSearchDTO>();
         [Inject]
@@ -83,19 +84,23 @@ namespace BestPathUI.Pages.MapPage
             AddCityDialog.Show();
         }
 
-        protected async Task ShowRoute()
+        protected async Task ShowRoute(bool getOptimizedRoute = false)
         {
             await JSRuntime.InvokeVoidAsync("removeDirections");
             var startPoint = GetStartPointGeoCoordinates();
             var endPoint = GetDestinationPointGeoCoordinates();
             var intermediatePoints = GetIntermediatePointsGeoCoordinates();
             if (startPoint != null && endPoint != null)
-                await JSRuntime.InvokeVoidAsync("showRoute", startPoint, endPoint, intermediatePoints);
+                await JSRuntime.InvokeVoidAsync("showRoute", startPoint, endPoint, intermediatePoints, getOptimizedRoute);
             else
                 if (startPoint == null)
                 ShowUnSuccessAlert("You need to select a start point before showing the path");
             else
                 ShowUnSuccessAlert("You need to select a destination point before showing the path");
+        }
+        protected void AtteptToDeleteRoute()
+        {
+            DeleteRouteDialog.Show();
         }
 
         protected async Task NewRoute()
@@ -194,7 +199,7 @@ namespace BestPathUI.Pages.MapPage
         protected async Task RouteSelected(Tuple<DateTime, List<City>> selectedRoute)
         {
             this.Cities = selectedRoute.Item2;
-            this.LastRoutes.Cities.Clear();
+            this.LastRoutes.Routes.Clear();
             await this.ShowRoute();
             ShowSuccessAlert("Route selected");
         }
@@ -213,6 +218,7 @@ namespace BestPathUI.Pages.MapPage
         {
             this.RestaurantSearches = map_AddCity.RestaurantSearches;
             this.MuseumSearches = map_AddCity.MuseumSearches;
+            map_AddCity.City.CityOrder = this.Cities.Count;
             this.Cities.Add(map_AddCity.City);
             this.Cities[this.Cities.Count - 1].UserId = await LocalStorageManagerService.GetPermanentItemAsync("UserId");
             if (this.MuseumSearches.Count == 0 && this.RestaurantSearches.Count == 0)
@@ -222,9 +228,15 @@ namespace BestPathUI.Pages.MapPage
                 await LocalStorageManagerService.SavePermanentItemAsync("Cities", serializedCities);
             }
             if (this.MuseumSearches.Count == 0 && map_AddCity.City.NeedsMuseum)
-                ShowUnSuccessAlert("Sorry! We couldn't find any museums in your area");
-            if (this.RestaurantSearches.Count == 0 && map_AddCity.City.NeedsRestaurant)
-                ShowUnSuccessAlert("Sorry! We couldn't find any restaurants in your area");
+            {
+                if (this.RestaurantSearches.Count == 0 && map_AddCity.City.NeedsRestaurant)
+                    ShowUnSuccessAlert("Sorry! We couldn't find any restaurants, nor any museums in your area");
+                else
+                    ShowUnSuccessAlert("Sorry! We couldn't find any museums in your area");
+            }
+            else
+                if (this.RestaurantSearches.Count == 0 && map_AddCity.City.NeedsRestaurant)
+                    ShowUnSuccessAlert("Sorry! We couldn't find any restaurants in your area");
             ShowSuccessAlert("The city was successfully added to the route!");
         }
 
