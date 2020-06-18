@@ -129,7 +129,7 @@ namespace BestPathUI.Pages.MapPage
             var userId = await LocalStorageManagerService.GetPermanentItemAsync("UserId");
             CityFilter cityFilter = new CityFilter { UserId = userId };
             var result = (await CitiesDataService.GetRoutes(cityFilter.GetFilter()));
-            if (result != null)
+            if (result.Routes.Count > 0)
                 LastRoutes = result;
             else
                 ShowUnSuccessAlert("You have no routes saved in our DB!");
